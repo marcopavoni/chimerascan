@@ -84,15 +84,6 @@ We usually want to use the canonical chromosome references and ignore the haplot
 
 This will concatenate all chromosomes with one or two characters following the 'chr' file prefix.
 
-=== Building a custom transcriptome reference ===
-
-The transcriptome annotation reference follows a format similar to the BED format in UCSC.  Support for BED, GFF, and other formats is planned for a future release.  In the meantime, you will need to set up your gene annotations in the following format:
-
-|| *Gene ID* || *chrom* || *strand* || *txStart* || *txEnd* || *cdsStart* || *cdsEnd* || *exonCount* || *exonStarts* || *exonEnds* || *geneSymbol ||
-|| uc002gii.1 || chr17 || - || 7571719 || 7578811 || 7572926 || 7578533 || 7 || 7571719,7573926,7576852,7577018,7577498,7578176,7578370, || 7573008,7574033,7576926,7577155,7577608,7578289,7578811, || TP53 ||
-
-The file should be in tabular text format with fields separated by the tab character ('\t').
-
 === Downloading transcriptome annotations from UCSC ==
 
   * Visit the UCSC Tables page at [http://genome.ucsc.edu/cgi-bin/hgTables?command=start]
@@ -115,6 +106,15 @@ If you downloaded a compressed (gzipped) transcriptome annotation file, uncompre
 {{{
 > gunzip <myfile.gz>
 }}}
+
+=== Building a custom transcriptome reference ===
+
+The transcriptome annotation reference follows a format similar to the BED format in UCSC.  Support for BED, GFF, and other formats is planned for a future release.  In the meantime, you will need to set up your gene annotations in the following format:
+
+|| *Gene ID* || *chrom* || *strand* || *txStart* || *txEnd* || *cdsStart* || *cdsEnd* || *exonCount* || *exonStarts* || *exonEnds* || *geneSymbol ||
+|| uc002gii.1 || chr17 || - || 7571719 || 7578811 || 7572926 || 7578533 || 7 || 7571719,7573926,7576852,7577018,7577498,7578176,7578370, || 7573008,7574033,7576926,7577155,7577608,7578289,7578811, || TP53 ||
+
+The file should be in tabular text format with fields separated by the tab character ('\t').
 
 == Running the chimerascan indexer ==
 
