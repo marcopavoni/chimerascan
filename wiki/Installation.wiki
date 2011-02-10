@@ -42,7 +42,7 @@ Then run the install command as follows:
 > python setup.py install [--prefix <INSTALL_DIR]
 }}}
 
-If you specified `--prefix`, `chimerascan` will be installed to a custom directory. The scripts reside in `INSTALL_DIR/bin` and the library modules reside in `INSTALL_DIR/lib/<lib/<python-version>/site-packages/chimerascan`.
+If you specified `--prefix`, `chimerascan` will be installed to a custom directory. The scripts reside in `INSTALL_DIR/bin` and the library modules reside in `INSTALL_DIR/lib/<python-version>/site-packages/chimerascan`.
 
 If you installed `chimerascan` to a custom location, you will need to set your PYTHONPATH variable to point to the installation directory. In the `bash` shell, this can be done as follows:
 
