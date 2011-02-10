@@ -9,9 +9,11 @@ Chimeras can also arise due to mutations and chromosomal aberrantions in genomic
 
 = Software requirements =
 
+`Chimerascan` was written with minimal software dependencies and additional requirements.  We hope that users will find it easy to install and use.
+
 == Linux/Unix ==
 
-`chimerascan` makes some system calls that assume a standard linux or unix environment.  Specifically, it calls the 'sort' command to sort certain intermediate files.  Your linux/mac distribution must have the 'sort' command in the system path.  We tested `chimerascan` on RedHat Enterprise Linux 5.
+`chimerascan` makes some system calls that assume a standard linux or unix environment.  Specifically, it calls the 'sort' command to sort certain intermediate files.  Your linux/mac distribution must have the 'sort' command in the system path.  We tested `chimerascan` on a 64-bit Redhat Enterprise Linux 5 platform.
 
 == python 2.6+ ==
 
