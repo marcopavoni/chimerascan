@@ -30,19 +30,29 @@ Unpack the `.tar.gz` file as follows:
 >tar -zxvf chimerascan-<version>.tar.gz
 }}}
 
-Next, change to the `chimerascan-<version>` directory that was just created.  Run the following python command to build/install the tool:
+Next, change to the `chimerascan-<version>` directory that was just created.  Run the following python command to build the tool.  This will compile any C extension modules.
 
 {{{
-> python setup.py build_ext --inplace
+> python setup.py build
 }}}
 
-This makes chimerascan runnable from the current directory.  Lastly, you will need to set your PYTHONPATH variable to point to the chimerascan directory. In the `bash` shell, this can be done as follows:
+Then run the install command as follows:
 
 {{{
-> export PYTHONPATH=/path/to/untarred/chimerascan-<version>:$PYTHONPATH
+> python setup.py install [--prefix <INSTALL_DIR]
 }}}
 
-To test your PYTHONPATH, execute the following from a terminal prompt:
+If you specified `--prefix`, `chimerascan` will be installed to a custom directory. The scripts reside in `INSTALL_DIR/bin` and the library modules reside in `INSTALL_DIR/lib/<lib/<python-version>/site-packages/chimerascan`.
+
+If you installed `chimerascan` to a custom location, you will need to set your PYTHONPATH variable to point to the installation directory. In the `bash` shell, this can be done as follows:
+
+{{{
+> export PYTHONPATH=<INSTALL_DIR>/lib/<python-version>/site-packages:$PYTHONPATH
+}}}
+
+You can add this to one of your login scripts (e.g. `.bashrc`) to automatically add chimerascan libraries to your `PYTHONPATH` every time you open a new terminal.
+
+To test that the chimerascan libraries are in your `PYTHONPATH` execute the following from a terminal prompt:
 {{{
 > python
 Python 2.6.X 
@@ -51,6 +61,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> import chimerascan
 >>> exit()
 }}}
+
+If this finishes without errors, you should be ready to run the `chimerascan` indexer.
 
 = Building an index for alignment using the *chimerascan* indexer =
 
