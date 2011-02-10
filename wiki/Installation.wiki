@@ -132,7 +132,7 @@ The transcriptome annotation reference follows a format similar to the BED forma
 
 The file should be in tabular text format with fields separated by the tab character ('\t').
 
-== Running the chimerascan indexer ==
+= Running the chimerascan indexer =
 
 Now that you have downloaded and prepared the genome and transcriptome references you can now run the chimerascan indexer.  The indexer requires that you specify the paths to the genome FASTA file, the gene annotation file, and an output directory.  The indexer uses the `bowtie-build` indexing scheme from bowtie to build the index, so you must specify the path to this program as well.
 
