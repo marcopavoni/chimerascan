@@ -1,4 +1,4 @@
-#summary installation and setup instructions
+#summary Installation and setup instructions
 #labels Featured
 
 = Introduction =
@@ -96,7 +96,11 @@ We usually want to use the canonical chromosome references and ignore the haplot
 
 This will concatenate all chromosomes with one or two characters following the 'chr' file prefix.
 
-=== Downloading transcriptome annotations from UCSC ==
+=== Obtaining transcriptome annotations from this site ===
+
+A version of the UCSC known genes for human genome version hg19 has been posted in the Downloads section for convenience.  If you are processing human data and would be satisfied with using the UCSC genes, you can download and unzip this file using `gunzip` and proceed to the next section.
+
+=== Downloading transcriptome annotations from UCSC ===
 
   * Visit the UCSC Tables page at [http://genome.ucsc.edu/cgi-bin/hgTables?command=start]
   * Set the *clade*, *genome*, and *assembly* flags to match the genome you downloaded
