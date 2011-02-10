@@ -136,4 +136,4 @@ This command will take several hours for large genomes.  Once the index is built
 
 = Running =
 
-If you completed the previous steps successfully, you can now proceed to run `chimerascan`!  Runs can be initiated through the main script `run_chimerascan.py` within the `chimerascan` directory.  See the [Running] page for more instructions.
+If you completed the previous steps successfully, you can now proceed to run `chimerascan`!  See the [Running] page for more instructions.
