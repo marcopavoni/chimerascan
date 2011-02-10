@@ -11,24 +11,75 @@ We have tested `chimerascan` using the UCSC genome version hg19 and the correspo
 
 == Finding the TMPRSS2-ERG gene fusion in prostate cancer ==
 
-$ ./bin/chimerascan_run.py -p 2 
+  # Assume you downloaded chimerascan to the directory `DOWNLOAD_DIR`
+  # Assume you built the chimerascan index in the directory `INDEX_DIR`
+
+To test chimerascan on the TMPRSS2-ERG discordant reads with the default parameters, run the following command:
+
+{{{
+$ <INSTALL_DIR>/bin/chimerascan_run.py --index <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq <OUTPUT_DIR>
+}}}
+
+For example, if I downloaded chimerascan to `/home/john/downloads/chimerascan`, and installed chimerascan to `/home/john/chimerascan` and built and index at '/home/john/chimerascan_hg19_ucsc', I could run chimerascan as follows:
+
+{{{
+$ /home/john/chimerascan/bin/chimerascan_run.py --index /home/john/chimerascan_hg19_ucsc /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_test
+}}}
+
+== Output ==
+
+A successful chimerascan run will produce several output files.  Currently, the key output file is a tabular text file named `chimeras.ranked.bedpe`.  This file follows the BEDPE format described by BEDTools, with many extra attributes appending after the required fields.
+
+|| Column# || Name || Example || Description ||
+|| 1 || 5' reference ||  uc002yzj.2 || Gene/chromosome reference 5' partner ||
+|| 2 || 5' start || 0 || Start position on 5' reference ||
+|| 3 || 5' end || 78 || End position on 5' reference ||
+|| 4 || 3' reference || uc002yzb.2 || Gene/chromosome reference for 3' partner ||
+|| 5 || 3' start || 311 || Start position on 3' reference ||
+|| 6 || 3' end || 5034 || End position on 3' reference ||
+|| 7 || Chimera name || TMPRSS2|ERG || 5' and 3' gene/chromosome names separated by a pipe '|' character ||
+|| 8 || Weighted coverage || 180.0 || Reads encompassing (not spanning) the fusion junction, where each read is weighted by the number of alternate alignments it had ||
+|| 9 || 5' strand || - || strand of 5' partner ||
+|| 10 || 3' strand || - || strand of 3' partner ||
+|| 11 || chimera type || Intrachromosomal || describes chimera as one of several types, including "Read_Through", "Intrachromosomal", "Interchromosomal", and others ||
+|| 12 || distance to 3' partner || -2802774 || distance from 5' to 3' chimera, or 'None' for interchromosomal chimeras ||
+|| 13 || encompassing reads || 180 || Unweighted encompassing read count ||
+|| 14 || read1 sense/read2 antisense || 91 || Count of instances where read1 in the pair is on the sense strand ||
+|| 14 || read2 sense/read1 antisense || 89 || Count of instances where read2 in the pair is on the sense strand ||
+|| 15 || multimapping histogram || 180,0,0,0,0,0,0,0 || Histogram of read multimapping counts, with bin sizes increasing by powers of two.  The first value are the number of unique reads.  The second is the number of reads with exactly 2 hits.  The 3rd column is the number of reads with 3-4 hits.  The 4th column is the number of reads with 5-8 hits.  5th: 9-16, 6th: 17-32, 7th: 33-64, 8th: 65-128+ ||
+|| 16 || 5' 95% insert size || 67 || 5-95% percentile of insert size range for the 5' partner ||
+|| 17 || 3' 95% insert size || 116 || 5-95% percentile of insert size range for the 3' partner ||
+|| 18 || 5' exons || 0-0 || Start and end exons (numbered from 5'-> 3') with encompassing reads ||
+|| 19 || 3' exons || 3-3 || Start and end exons (numbered from 5'-> 3') with encompassing reads ||
+|| 20 || 5' junction permiscuity || 1.0 || fraction of chimeric reads using the 5' junction that are accountable to the 3' partner ||
+|| 21 || 5' junction permiscuity || 1.0 || fraction of chimeric reads using the 3' junction that are accountable to the 5' partner ||
 
 
+5-95% percentile of insert size range for the 3' partner ||
+
+
+
+
+uc002yzj.2      0       78      uc002yxb.2      311     5034    TMPRSS2|ERG     180.0   -       -       Intrachromosomal        -2802774        180     91      89      180,0,0,0,0,0,0,0       67      116     0-0     3-3     1.0     1.0
+
+== `Chimerascan` command-line options ==
 
 You can view some of the command-line options for `chimerascan` by using the "-h" option from the command line.
 
 {{{
 [myself@mylocation] $ <INSTALL_DIR>/bin/chimerascan_run.py -h
 Usage: chimerascan_run.py [options] [--config <config_file>  | <mate1.fq> <mate2.fq> <output_dir>]
-
 Options:
-  --version             show program's version number and exit
-  -h, --help            show this help message and exit
-  --index=INDEX_DIR     Path to chimerascan index directory
-  --config=CONFIG_FILE  Path to configuration XML file
+  --version             
+                        show program's version number and exit
+  -h, --help            
+                        show this help message and exit
+  --index=INDEX_DIR     
+                        Path to chimerascan index directory
+  --config=CONFIG_FILE  
+                        Path to configuration XML file
   -p NUM_PROCESSORS, --processors=NUM_PROCESSORS
-                        Number of processor cores to allocate to chimerascan
-                        [default=2]
+                        Number of processor cores to allocate to chimerascan [default=2]
   --keep-tmp            Do not delete intermediate files from run
   --bowtie-build-bin=BOWTIE_BUILD_BIN
                         Path to 'bowtie-build' program
@@ -37,7 +88,8 @@ Options:
   --bowtie-mode-v       Run bowtie with -v to ignore quality scores
   --multihits=MMAX      Ignore reads that map to more than MMAX locations
                         [default=100]
-  --mismatches=N        Aligned reads must have <= N mismatches [default=2]
+  --mismatches=N        
+                        Aligned reads must have <= N mismatches [default=2]
   --segment-length=SEGMENT_LENGTH
                         Size of read segments during discordant alignment
                         phase [default=25]
@@ -50,7 +102,8 @@ Options:
                         Largest expected fragment length (reads less than this
                         fragment length are assumed to be  unspliced and
                         contiguous) [default=1000]
-  --max-indel-size=N    Tolerate indels less than N bp [default=100]
+  --max-indel-size=N    
+                        Tolerate indels less than N bp [default=100]
   --library=LIBRARY_TYPE
                         Library type ('fr', 'rf') [default=fr]
   --anchor-min=ANCHOR_MIN
@@ -79,16 +132,12 @@ Options:
                         p-value to reject chimera based on  binomial test that
                         balance of +/- strand  encompassing reads should be
                         50/50 [default=0.01]
-    --prob=p            empirical probability threshold for outputting
+    --empirical-prob=p  
+                        Empirical probability threshold for outputting
                         chimeras [default=1.0]
 }}}
 
 
+== `Chimerascan` configuration file support ==
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Chimerascan supports an XML configuration file containing a run configuration and all command-line options.  Documentation on how to create this config file will be provided soon.
