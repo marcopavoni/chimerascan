@@ -51,16 +51,26 @@ A successful chimerascan run will produce several output files.  Currently, the 
 || 17 || 3' 95% insert size || 116 || 5-95% percentile of insert size range for the 3' partner ||
 || 18 || 5' exons || 0-0 || Start and end exons (numbered from 5'-> 3') with encompassing reads ||
 || 19 || 3' exons || 3-3 || Start and end exons (numbered from 5'-> 3') with encompassing reads ||
-|| 20 || 5' junction permiscuity || 1.0 || fraction of chimeric reads using the 5' junction that are accountable to the 3' partner ||
-|| 21 || 5' junction permiscuity || 1.0 || fraction of chimeric reads using the 3' junction that are accountable to the 5' partner ||
+|| 20 || 5' junction permiscuity || 1.0 || fraction of chimeric reads using the 5' junction that are accountable to this 3' partner ||
+|| 21 || 3' junction permiscuity || 1.0 || fraction of chimeric reads using the 3' junction that are accountable to this 5' partner ||
+|| 22 || Read IDs || <not shown> || semicolon-delimited list of read IDs from the original FASTQ file ||
+|| 23 || Read1 Sequences || <not shown> || semicolon-delimited list of encompassing reads from read1 in the pair ||
+|| 24 || Read2 Sequences || <not shown> || semicolon-delimited list of encompassing reads from read2 in the pair ||
+|| 25 || Read2 Sequences || <not shown> || semicolon-delimited list of encompassing reads from read2 in the pair ||
+|| 26 || Junction ID || JUNC000001 || unique ID for this chimeric junction ||
+|| 27 || Junction Pos || 52 || location of breakpoint within junction sequence ||
+|| 28 || 5' homology || 2 || number of bases of homology between 5' and 3' partners ||
+|| 29 || 3' homology || 2 || number of bases of homology between 3' and 5' partners ||
+|| 30 || Spanning reads || 70 || number of reads spanning the breakpoint ||
+|| 31 || Intersection of encompassing and spanning reads || 68 || Number of spanning reads that were aligned as encompassing reads during segmented alignment ||
+|| 32 || Union of encompassing and spanning reads || 182 || Total number of reads supporting the breakpoint ||
+|| 33 || Spanning read descriptors || <not shown> || semicolon-delimited strings with "READ-ID|READ[0,1]|SEQUENCE|START|END|MULTIMAPPINGS|STRAND" for each spanning read ||
+|| 34 || Score || 0.75 || interpolated empirical score used for ranking chimeras ||
 
 
-5-95% percentile of insert size range for the 3' partner ||
 
 
 
-
-uc002yzj.2      0       78      uc002yxb.2      311     5034    TMPRSS2|ERG     180.0   -       -       Intrachromosomal        -2802774        180     91      89      180,0,0,0,0,0,0,0       67      116     0-0     3-3     1.0     1.0
 
 == `Chimerascan` command-line options ==
 
