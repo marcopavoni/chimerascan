@@ -7,6 +7,82 @@
 
 = Your first run =
 
+We have tested `chimerascan` using the UCSC genome version hg19 and the corresponding UCSC known gene transcriptome annotations.  For the following example, we will assume your created an index (using the `chimerascan_index.py` script) with an output directory `<INDEX_DIR>`.  `Chimerascan` comes packages with some handy test FASTQ files that we prepared from known chimeras.  These are located in the `/tests` subdirectory within the chimerascan download directory. You should first try chimerascan on some of these to ensure that your setup is working.  Note that the test chimeras provided are *human* chimeras and only compatible with indexes generated from the human genome.
+
+== Finding the TMPRSS2-ERG gene fusion in prostate cancer ==
+
+$ ./bin/chimerascan_run.py -p 2 
+
+
+
+You can view some of the command-line options for `chimerascan` by using the "-h" option from the command line.
+
+{{{
+[myself@mylocation] $ <INSTALL_DIR>/bin/chimerascan_run.py -h
+Usage: chimerascan_run.py [options] [--config <config_file>  | <mate1.fq> <mate2.fq> <output_dir>]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  --index=INDEX_DIR     Path to chimerascan index directory
+  --config=CONFIG_FILE  Path to configuration XML file
+  -p NUM_PROCESSORS, --processors=NUM_PROCESSORS
+                        Number of processor cores to allocate to chimerascan
+                        [default=2]
+  --keep-tmp            Do not delete intermediate files from run
+  --bowtie-build-bin=BOWTIE_BUILD_BIN
+                        Path to 'bowtie-build' program
+  --bowtie-bin=BOWTIE_BIN
+                        Path to 'bowtie' program
+  --bowtie-mode-v       Run bowtie with -v to ignore quality scores
+  --multihits=MMAX      Ignore reads that map to more than MMAX locations
+                        [default=100]
+  --mismatches=N        Aligned reads must have <= N mismatches [default=2]
+  --segment-length=SEGMENT_LENGTH
+                        Size of read segments during discordant alignment
+                        phase [default=25]
+  --trim5=N             Trim N bases from 5' end of read
+  --trim3=N             Trim N bases from 3' end of read
+  --quals=FMT           Choose from solexa,sanger,illumina [default=sanger]
+  --min-fragment-length=MIN_FRAGMENT_LENGTH
+                        Smallest expected fragment length [default=0]
+  --max-fragment-length=MAX_FRAGMENT_LENGTH
+                        Largest expected fragment length (reads less than this
+                        fragment length are assumed to be  unspliced and
+                        contiguous) [default=1000]
+  --max-indel-size=N    Tolerate indels less than N bp [default=100]
+  --library=LIBRARY_TYPE
+                        Library type ('fr', 'rf') [default=fr]
+  --anchor-min=ANCHOR_MIN
+                        Minimum junction overlap required to call spanning
+                        reads [default=0]
+  --anchor-max=ANCHOR_MAX
+                        Junction overlap below which to enforce mismatch
+                        checks [default=5]
+  --anchor-mismatches=ANCHOR_MISMATCHES
+                        Number of mismatches allowed within anchor region
+                        [default=5]
+
+  Filtering options:
+    Adjust these options to change filtering behavior
+
+    --filter-multimaps=FILTER_MAX_MULTIMAPS
+                        Filter chimeras that lack a read  with <= HITS
+                        alternative hits in both  pairs [default=2]
+    --filter-multimap-ratio=RATIO
+                        Filter chimeras with a weighted coverage versus total
+                        reads ratio <= RATIO [default=0.1]
+    --filter-isize-stdevs=N
+                        Filter chimeras where putative insert size is >N
+                        standard deviations from the mean [default=3]
+    --filter-strand-pvalue=p
+                        p-value to reject chimera based on  binomial test that
+                        balance of +/- strand  encompassing reads should be
+                        50/50 [default=0.01]
+    --prob=p            empirical probability threshold for outputting
+                        chimeras [default=1.0]
+}}}
+
 
 
 
