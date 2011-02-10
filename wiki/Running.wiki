@@ -30,7 +30,7 @@ $ /home/john/chimerascan/bin/chimerascan_run.py --index /home/john/chimerascan_h
 
 A successful chimerascan run will produce several output files.  Currently, the key output file is a tabular text file named `chimeras.ranked.bedpe`.  This file follows the BEDPE format described by BEDTools, with many extra attributes appending after the required fields.
 
-|| Column# || Name || Example || Description ||
+|| *Column#* || *Name* || *Example* || *Description* ||
 || 1 || 5' reference ||  uc002yzj.2 || Gene/chromosome reference 5' partner ||
 || 2 || 5' start || 0 || Start position on 5' reference ||
 || 3 || 5' end || 78 || End position on 5' reference ||
@@ -64,7 +64,7 @@ A successful chimerascan run will produce several output files.  Currently, the 
 || 30 || Spanning reads || 70 || number of reads spanning the breakpoint ||
 || 31 || Intersection of encompassing and spanning reads || 68 || Number of spanning reads that were aligned as encompassing reads during segmented alignment ||
 || 32 || Union of encompassing and spanning reads || 182 || Total number of reads supporting the breakpoint ||
-|| 33 || Spanning read descriptors || <not shown> || semicolon-delimited strings with "READ-ID|READ[0,1]|SEQUENCE|START|END|MULTIMAPPINGS|STRAND" for each spanning read ||
+|| 33 || Spanning read descriptors || <not shown> || semicolon-delimited strings with "READ-ID|READ`[0,1]`|SEQUENCE|START|END|MULTIMAPPINGS|STRAND" for each spanning read ||
 || 34 || Score || 0.75 || interpolated empirical score used for ranking chimeras ||
 
 
