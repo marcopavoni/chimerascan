@@ -95,9 +95,32 @@ The `chimeras.ranked.bedpe` file follows the BEDPE format described by BEDTools,
 || 31 || Intersection of encompassing and spanning reads || 68 || Number of spanning reads that were aligned as encompassing reads during segmented alignment ||
 || 32 || Union of encompassing and spanning reads || 182 || Total number of reads supporting the breakpoint ||
 || 33 || Spanning read descriptors || <not shown> || semicolon-delimited strings with "READ-ID|READ`[0,1]`|SEQUENCE|START|END|MULTIMAPPINGS|STRAND" for each spanning read ||
-|| 34 || Score || 0.75 || interpolated empirical score used for ranking chimeras ||
+|| 34 || Breakpoint histogram || 1,2,0,0,0,5,4,3,2,8 || histogram of number reads spanning the breakpoint each anchor length ||
+|| 35 || Score || 0.75 || interpolated empirical score used for ranking chimeras ||
 
+== Creating an HTML page for easy viewing of the top candidates in a run ==
 
+A new script, "chimerascan_html_table.py", is now provided that produces a sortable table of the top chimera candidates in a *chimeras.ranked.bedpe* file.  *NOTE: This script requires the Jinja2 python package to be installed, visit [http://jinja.pocoo.org/docs/intro/#installation] to install it*.  The script has two parameters: (1) a threshold for the empirical probability and (2) whether or not to include "read-through" chimeras in the output.
+
+{{{
+$ /home/john/chimerascan/bin/chimerascan_html.py -h
+Usage: chimerascan_html_table.py [options] <chimeras.ranked.bedpe>
+
+Options:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE        output file [default=stdout]
+  --empirical-prob=EMPIRICAL_PROB
+                        probability threshold (0-1) [default=0.6]
+  --read-throughs       include read-through chimeras in output
+                        [default=False]
+}}}
+
+For example:
+{{{
+/home/john/chimerascan/bin/chimerascan_html.py --empirical-prob 1.0 -o myfile.html chimeras.ranked.bedpe
+}}}
+
+The output file, *myfile.html* will be written.  You can open it in your favorite web browser.  Javascript should be enabled to facilitate the sorting feature.
 
 = `Chimerascan` command-line options =
 
@@ -108,56 +131,57 @@ Many of chimerascan's options are directly passed to `Bowtie`.  Therefore, users
 {{{
 [myself@mylocation] $ <INSTALL_DIR>/bin/chimerascan_run.py -h
 Usage: chimerascan_run.py [options] [--config <config_file>  | <mate1.fq> <mate2.fq> <output_dir>]
+
 Options:
-  --version             
-                        show program's version number and exit
-  -h, --help            
-                        show this help message and exit
-  --index=INDEX_DIR     
-                        Path to chimerascan index directory
-  --config=CONFIG_FILE  
-                        Path to configuration XML file
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  --index=INDEX_DIR     Path to chimerascan index directory
+  --config=CONFIG_FILE  Path to configuration XML file
+  -v, --verbose         enable verbose logging output [default=False]
   -p NUM_PROCESSORS, --processors=NUM_PROCESSORS
-                        Number of processor cores to allocate to chimerascan [default=2]
+                        Number of processor cores to allocate to chimerascan
+                        [default=2]
   --keep-tmp            Do not delete intermediate files from run
-  --bowtie-build-bin=BOWTIE_BUILD_BIN
+
+  Bowtie options:
+    Adjust these options to change bowtie alignment settings
+
+    --bowtie-build-bin=BOWTIE_BUILD_BIN
                         Path to 'bowtie-build' program
-  --bowtie-bin=BOWTIE_BIN
+    --bowtie-bin=BOWTIE_BIN
                         Path to 'bowtie' program
-  --bowtie-mode-v       Run bowtie with -v to ignore quality scores
-  --multihits=MMAX      Ignore reads that map to more than MMAX locations
+    --bowtie-mode-v     Run bowtie with -v to ignore quality scores
+    --multihits=MMAX    Ignore reads that map to more than MMAX locations
                         [default=100]
-  --mismatches=N        
-                        Aligned reads must have <= N mismatches [default=2]
-  --segment-length=SEGMENT_LENGTH
+    --mismatches=N      Aligned reads must have <= N mismatches [default=2]
+    --segment-length=SEGMENT_LENGTH
                         Size of read segments during discordant alignment
                         phase [default=25]
-  --trim5=N             Trim N bases from 5' end of read
-  --trim3=N             Trim N bases from 3' end of read
-  --quals=FMT           Choose from solexa,sanger,illumina [default=sanger]
-  --min-fragment-length=MIN_FRAGMENT_LENGTH
+    --trim5=N           Trim N bases from 5' end of read
+    --trim3=N           Trim N bases from 3' end of read
+    --quals=FMT         Choose from solexa,sanger,illumina [default=sanger]
+    --min-fragment-length=MIN_FRAGMENT_LENGTH
                         Smallest expected fragment length [default=0]
-  --max-fragment-length=MAX_FRAGMENT_LENGTH
+    --max-fragment-length=MAX_FRAGMENT_LENGTH
                         Largest expected fragment length (reads less than this
                         fragment length are assumed to be  unspliced and
                         contiguous) [default=1000]
-  --max-indel-size=N    
-                        Tolerate indels less than N bp [default=100]
-  --library=LIBRARY_TYPE
+    --library=LIBRARY_TYPE
                         Library type ('fr', 'rf') [default=fr]
-  --anchor-min=ANCHOR_MIN
-                        Minimum junction overlap required to call spanning
-                        reads [default=0]
-  --anchor-max=ANCHOR_MAX
-                        Junction overlap below which to enforce mismatch
-                        checks [default=5]
-  --anchor-mismatches=ANCHOR_MISMATCHES
-                        Number of mismatches allowed within anchor region
-                        [default=5]
 
   Filtering options:
     Adjust these options to change filtering behavior
 
+    --max-indel-size=N  Tolerate indels less than N bp [default=100]
+    --anchor-min=ANCHOR_MIN
+                        Minimum junction overlap required to call spanning
+                        reads [default=0]
+    --anchor-max=ANCHOR_MAX
+                        Junction overlap below which to enforce mismatch
+                        checks [default=5]
+    --anchor-mismatches=ANCHOR_MISMATCHES
+                        Number of mismatches allowed within anchor region
+                        [default=5]
     --filter-multimaps=FILTER_MAX_MULTIMAPS
                         Filter chimeras that lack a read  with <= HITS
                         alternative hits in both  pairs [default=2]
@@ -171,12 +195,46 @@ Options:
                         p-value to reject chimera based on  binomial test that
                         balance of +/- strand  encompassing reads should be
                         50/50 [default=0.01]
-    --empirical-prob=p  
-                        Empirical probability threshold for outputting
+    --empirical-prob=p  empirical probability threshold for outputting
                         chimeras [default=1.0]
 }}}
 
-
 == `Chimerascan` configuration file support ==
 
-Chimerascan supports an XML configuration file containing a run configuration and all command-line options.  Documentation on how to create this config file will be provided soon.
+Chimerascan supports an XML configuration file containing a run configuration and all command-line options.  All of the XML fields are optional and the command line parameters will always override the XML fields.  At the beginning of each run, a file `runconfig.xml` will be written to the output directory to reflect the exact conglomeration of parameters that were used in that run.
+
+Below is an example working configuration file that you may use as a template:
+
+{{{
+<chimerascan_config>
+  <output_dir>myout</output_dir>
+  <fastq_files>
+    <file mate="0">read1.fq</file>
+    <file mate="1">read2.fq</file>
+  </fastq_files>
+  <index>/path/to/hg19_ucsc_index</index>
+  <quals>solexa</quals>
+  <num_processors>2</num_processors>
+  <keep_tmp>False</keep_tmp>
+  <bowtie_build_bin>bowtie-build</bowtie_build_bin>
+  <bowtie_bin>bowtie</bowtie_bin>
+  <bowtie_mode_v>False</bowtie_mode_v>
+  <multihits>100</multihits>
+  <mismatches>2</mismatches>
+  <segment_length>25</segment_length>
+  <trim5>0</trim5>
+  <trim3>0</trim3>
+  <min_fragment_length>0</min_fragment_length>
+  <max_fragment_length>1000</max_fragment_length>
+  <max_indel_size>100</max_indel_size>
+  <library_type>fr</library_type>
+  <filter_max_multimaps>2</filter_max_multimaps>
+  <filter_multimap_ratio>0.1</filter_multimap_ratio>
+  <filter_isize_stdevs>3</filter_isize_stdevs>
+  <filter_strand_pval>0.01</filter_strand_pval>
+  <anchor_min>0</anchor_min>
+  <anchor_max>5</anchor_max>
+  <anchor_mismatches>5</anchor_mismatches>
+  <empirical_prob>1.0</empirical_prob>
+</chimerascan_config>
+}}}
