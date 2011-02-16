@@ -19,6 +19,10 @@ Chimeras can also arise due to mutations and chromosomal aberrantions in genomic
 
 The `chimerascan` program is written in python 2.6+.  If you do not have python2.6+ installed on your system, visit http://python.org and install it.
 
+== The Jinja2 python package (optional) ==
+
+The Jinja2 package is used to produce HTML output files.  This feature is optional but recommended for easy readability. You can easily install this package from the [http://jinja.pocoo.org/docs/intro/#installation Jinja2] website.
+
 == bowtie ==
 
 `chimerascan` uses the *bowtie* alignment tool as the kernel for much of its searching process.  You can download and install bowtie from its Sourceforge page at (http://bowtie-bio.sourceforge.net/).  We tested `chimerascan` using bowtie 0.12.7, and cannot confirm its compatibility with older (or newer) versions.  However, `chimerascan` is likely to work with any of bowtie that supports the SAM output format.  It would be preferable to place the bowtie program into your system path, so that merely typing `bowtie` at the linux command prompt suffices to run the tool.
