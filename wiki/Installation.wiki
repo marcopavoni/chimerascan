@@ -143,7 +143,7 @@ The file should be in tabular text format with fields separated by the tab chara
 Now that you have downloaded and prepared the genome and transcriptome references you can now run the chimerascan indexer.  The indexer requires that you specify the paths to the genome FASTA file, the gene annotation file, and an output directory.  The indexer uses the `bowtie-build` indexing scheme from bowtie to build the index, so you must specify the path to this program as well.
 
 {{{
-> python /path/to/chimerascan-<version>/chimerascan/chimerascan_index.py -h
+> python <INSTALL_DIR>/chimerascan/chimerascan_index.py -h
 Usage: chimerascan_index.py [options] <reference_genome.fa> <gene_models.txt> <index_output_dir>
 
 Options:
