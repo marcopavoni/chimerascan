@@ -158,6 +158,7 @@ Options:
                         Filter chimeras when putative insert size is larger
                         than the Nth percentile of the distribution
                         [default=99.9]
+}}}
 
 == `Chimerascan` configuration file support ==
 
