@@ -197,22 +197,21 @@ Options:
 
 Chimerascan supports an XML configuration file containing a run configuration and all command-line options.  All of the XML fields are optional and the command line parameters will always override the XML fields.  At the beginning of each run, a file `runconfig.xml` will be written to the output directory to reflect the exact conglomeration of parameters that were used in that run.
 
-Below is an example working configuration file that you may use as a template:
+Below is an example working configuration file that may be used as a template:
 
 {{{
 <chimerascan_config>
-  <output_dir>myout</output_dir>
+  <output_dir>out</output_dir>
   <fastq_files>
     <file mate="0">read1.fq</file>
     <file mate="1">read2.fq</file>
   </fastq_files>
-  <index>/path/to/hg19_ucsc_index</index>
-  <quals>solexa</quals>
-  <num_processors>2</num_processors>
+  <index>myindex</index>
+  <num_processors>4</num_processors>
+  <quals>illumina</quals>
   <keep_tmp>False</keep_tmp>
-  <bowtie_build_bin>bowtie-build</bowtie_build_bin>
-  <bowtie_bin>bowtie</bowtie_bin>
-  <bowtie_mode_v>False</bowtie_mode_v>
+  <bowtie_path />
+  <bowtie_args>--best --strata</bowtie_args>
   <multihits>100</multihits>
   <mismatches>2</mismatches>
   <segment_length>25</segment_length>
@@ -220,15 +219,13 @@ Below is an example working configuration file that you may use as a template:
   <trim3>0</trim3>
   <min_fragment_length>0</min_fragment_length>
   <max_fragment_length>1000</max_fragment_length>
-  <max_indel_size>100</max_indel_size>
-  <library_type>fr</library_type>
-  <filter_max_multimaps>2</filter_max_multimaps>
-  <filter_multimap_ratio>0.1</filter_multimap_ratio>
-  <filter_isize_stdevs>3</filter_isize_stdevs>
-  <filter_strand_pval>0.01</filter_strand_pval>
-  <anchor_min>0</anchor_min>
-  <anchor_max>5</anchor_max>
-  <anchor_mismatches>5</anchor_mismatches>
-  <empirical_prob>1.0</empirical_prob>
+  <library_type>fr-unstranded</library_type>
+  <homology_mismatches>2</homology_mismatches>
+  <anchor_min>4</anchor_min>
+  <anchor_length>8</anchor_length>
+  <anchor_mismatches>0</anchor_mismatches>
+  <filter_cov_wo_spanning>3</filter_cov_wo_spanning>
+  <filter_cov_w_spanning>2</filter_cov_w_spanning>
+  <filter_isize_percentile>99.9</filter_isize_percentile>
 </chimerascan_config>
 }}}
