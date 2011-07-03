@@ -42,7 +42,7 @@ You can now proceed to look at the output.
 
 == Output ==
 
-The `chimeras.txt` file contains information about the chromosomal regions, transcript ids, genes, and statistics for each nominating chimera.  A full description of the output format is provided below:
+The `chimeras.txt` file contains information about the chromosomal regions, transcript ids, genes, and statistics for each chimera.  A full description of the output format is provided below:
 
 || *Column#* || *Name* || *Example* || *Description* ||
 || 1 || 5' chromosome || chr21 || Chromosome of 5' partner ||
