@@ -65,6 +65,8 @@ Python 2.6.X
 Type "help", "copyright", "credits" or "license" for more information.
 
 >>> import chimerascan
+>>> chimerascan.__version__
+'0.4.0'
 >>> exit()
 }}}
 
