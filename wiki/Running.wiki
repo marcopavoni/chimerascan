@@ -8,9 +8,9 @@
 
 = Your first run =
 
-We have tested `chimerascan` using the UCSC genome version hg19 and the corresponding UCSC known gene transcriptome annotations.  For the following example, we will assume your created an index (using the `chimerascan_index.py` script) with an output directory `<INDEX_DIR>`.  `Chimerascan` comes packages with some handy test FASTQ files that we prepared from known chimeras.  These FASTQ files contain _solexa_ type quality scores. These are located in the `/tests` subdirectory within the chimerascan download directory. You should first try chimerascan on some of these to ensure that your setup is working.  Note that the test reads provided are from *human* and only compatible with indexes build from the human genome.
-
 == Finding the TMPRSS2-ERG gene fusion in prostate cancer ==
+
+We have tested `chimerascan` using the UCSC genome version hg19 and the corresponding UCSC known gene transcriptome annotations.  For the following example, we will assume your created an index (using the `chimerascan_index.py` script) with an output directory `<INDEX_DIR>`.  `Chimerascan` comes packages with some handy test FASTQ files that we prepared from known chimeras.  These FASTQ files contain _solexa_ type quality scores. These are located in the `/tests` subdirectory within the chimerascan download directory. You should first try chimerascan on some of these to ensure that your setup is working.  Note that the test reads provided are from *human* and only compatible with indexes build from the human genome.
 
   # Assume you downloaded chimerascan to the directory `DOWNLOAD_DIR`
   # Assume you built the chimerascan index in the directory `INDEX_DIR`
