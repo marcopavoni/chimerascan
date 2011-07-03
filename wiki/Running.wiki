@@ -18,7 +18,9 @@ We have tested `chimerascan` using the UCSC genome version hg19 and the correspo
 To test chimerascan on the TMPRSS2-ERG discordant reads with the default parameters, run the following command:
 
 {{{
-python <INSTALL_DIR>/bin/chimerascan_run.py -v --quals solexa <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_output_dir
+python <INSTALL_DIR>/bin/chimerascan_run.py -v 
+  --quals solexa <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq 
+  <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_output_dir
 }}}
 
 For example, if I downloaded chimerascan to `/home/john/downloads/chimerascan`, and installed chimerascan to `/home/john/chimerascan` and built and index at '/home/john/chimerascan_hg19_ucsc_index', I could run chimerascan as follows:
