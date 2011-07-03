@@ -63,29 +63,26 @@ The `chimeras.txt` file contains information about the chromosomal regions, tran
 || 16 || unique alignment positions || 132 || number unique read alignment positions ||
 || 17 || unique spanning alignment positions || 16 || number of unique breakpoint spanning alignment positions ||
 
-== Creating an HTML page for easy viewing of the top candidates in a run ==
+== Creating an HTML page for convenient output visualization ==
 
-A new script, "chimerascan_html_table.py", is now provided that produces a sortable table of the top chimera candidates in a *chimeras.ranked.bedpe* file.  *NOTE: This script requires the Jinja2 python package to be installed, visit [http://jinja.pocoo.org/docs/intro/#installation] to install it*.  The script has two parameters: (1) a threshold for the empirical probability and (2) whether or not to include "read-through" chimeras in the output.
+A script, "make_html_table.py", is provided in the installation and produces an HTML web page with a sortable table of the chimeras in the output. *NOTE: This script requires the Jinja2 python package to be installed, visit [http://jinja.pocoo.org/docs/intro/#installation] to install it*.  The script suppresses read-through chimeras by default, unless the `--read-throughs` option is supplied on the command line. The script is run as follows:
 
 {{{
-$ /home/john/chimerascan/bin/chimerascan_html.py -h
-Usage: chimerascan_html_table.py [options] <chimeras.ranked.bedpe>
+$ python <INSTALL_DIR/bin/make_html_table.py -h
+Usage: make_html_table.py [options] <chimeras.txt>
 
 Options:
-  -h, --help            show this help message and exit
-  -o OUTPUT_FILE        output file [default=stdout]
-  --empirical-prob=EMPIRICAL_PROB
-                        probability threshold (0-1) [default=0.6]
-  --read-throughs       include read-through chimeras in output
-                        [default=False]
+  -h, --help       show this help message and exit
+  -o OUTPUT_FILE   output file [default=stdout]
+  --read-throughs  include read-through chimeras in output [default=False]
 }}}
 
 For example:
 {{{
-/home/john/chimerascan/bin/chimerascan_html.py --empirical-prob 1.0 -o myfile.html chimeras.ranked.bedpe
+python /home/john/chimerascan/bin/make_html_table.py --read-throughts -o chimeras.html ./t2erg_output_dir/chimeras.txt
 }}}
 
-The output file, *myfile.html* will be written.  You can open it in your favorite web browser.  Javascript should be enabled to facilitate the sorting feature.
+The output file, *chimeras.html* will be written.  You can open it in your favorite web browser.  Javascript should be enabled to facilitate the sorting feature.
 
 = `Chimerascan` command-line options =
 
@@ -107,6 +104,11 @@ Options:
                         [default=2]
   --keep-tmp            Do not delete intermediate files from run
   --quals=FMT           FASTQ quality score format [default=sanger]
+  --isize-mean=N        Mean insert size to sample from when insert size
+                        distribution cannot be determined empirically
+  --isize-stdev=N       Insert size standard deviation to sample from when
+                        insert size distribution cannot be determined
+                        empirically
 
   Bowtie options:
     Adjust these options to change bowtie alignment settings
@@ -156,7 +158,6 @@ Options:
                         Filter chimeras when putative insert size is larger
                         than the Nth percentile of the distribution
                         [default=99.9]
-}}}
 
 == `Chimerascan` configuration file support ==
 
@@ -168,12 +169,12 @@ Below is an example working configuration file that may be used as a template:
 <chimerascan_config>
   <output_dir>out</output_dir>
   <fastq_files>
-    <file mate="0">read1.fq</file>
-    <file mate="1">read2.fq</file>
+    <file mate="0">/home/john/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq</file>
+    <file mate="1">/home/john/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq</file>
   </fastq_files>
-  <index>myindex</index>
-  <num_processors>4</num_processors>
-  <quals>illumina</quals>
+  <index>/home/mkiyer/projects/bubba/myindex</index>
+  <num_processors>2</num_processors>
+  <quals>solexa</quals>
   <keep_tmp>False</keep_tmp>
   <bowtie_path />
   <bowtie_args>--best --strata</bowtie_args>
@@ -185,6 +186,8 @@ Below is an example working configuration file that may be used as a template:
   <min_fragment_length>0</min_fragment_length>
   <max_fragment_length>1000</max_fragment_length>
   <library_type>fr-unstranded</library_type>
+  <isize_mean>200</isize_mean>
+  <isize_stdev>40</isize_stdev>
   <homology_mismatches>2</homology_mismatches>
   <anchor_min>4</anchor_min>
   <anchor_length>8</anchor_length>
