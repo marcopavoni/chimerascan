@@ -8,7 +8,7 @@
 
 = Your first run =
 
-We have tested `chimerascan` using the UCSC genome version hg19 and the corresponding UCSC known gene transcriptome annotations.  For the following example, we will assume your created an index (using the `chimerascan_index.py` script) with an output directory `<INDEX_DIR>`.  `Chimerascan` comes packages with some handy test FASTQ files that we prepared from known chimeras.  These are located in the `/tests` subdirectory within the chimerascan download directory. You should first try chimerascan on some of these to ensure that your setup is working.  Note that the test chimeras provided are *human* chimeras and only compatible with indexes generated from the human genome.
+We have tested `chimerascan` using the UCSC genome version hg19 and the corresponding UCSC known gene transcriptome annotations.  For the following example, we will assume your created an index (using the `chimerascan_index.py` script) with an output directory `<INDEX_DIR>`.  `Chimerascan` comes packages with some handy test FASTQ files that we prepared from known chimeras.  These FASTQ files contain _solexa_ type quality scores. These are located in the `/tests` subdirectory within the chimerascan download directory. You should first try chimerascan on some of these to ensure that your setup is working.  Note that the test reads provided are from *human* and only compatible with indexes build from the human genome.
 
 == Finding the TMPRSS2-ERG gene fusion in prostate cancer ==
 
@@ -18,18 +18,18 @@ We have tested `chimerascan` using the UCSC genome version hg19 and the correspo
 To test chimerascan on the TMPRSS2-ERG discordant reads with the default parameters, run the following command:
 
 {{{
-$ <INSTALL_DIR>/bin/chimerascan_run.py --index <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq <OUTPUT_DIR>
+$ <INSTALL_DIR>/bin/chimerascan_run.py --quals solexa <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq <OUTPUT_DIR>
 }}}
 
 For example, if I downloaded chimerascan to `/home/john/downloads/chimerascan`, and installed chimerascan to `/home/john/chimerascan` and built and index at '/home/john/chimerascan_hg19_ucsc', I could run chimerascan as follows:
 
 {{{
-$ /home/john/chimerascan/bin/chimerascan_run.py --index /home/john/chimerascan_hg19_ucsc /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_test
+$ /home/john/chimerascan/bin/chimerascan_run.py /home/john/chimerascan_hg19_ucsc /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_test
 }}}
 
 == Logging messages ==
 
-Currently, chimerascan is in beta testing, and outputs a considerable number of logging messages during runtime.  These will be disabled in a future release.  It is safe to ignore them for now as long as the pipeline finishes successfully.  If all goes well, you will see the following message upon completion:
+Chimerascan produces periodic logging messages during runtime.  Adding the `--verbose` option on the command line will show additional debugging messages. If all goes well, you will see the following message upon completion:
 
 `2011-02-09 22:04:09,907 - root - INFO - Finished run. Chimeras written to file t2erg/chimeras.ranked.bedpe`
 
