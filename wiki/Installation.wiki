@@ -150,8 +150,9 @@ Usage: chimerascan_index.py [options] <reference_genome.fa> <gene_models.txt> <i
 
 Options:
   -h, --help            show this help message and exit
-  --bowtie-build-bin=BOWTIE_BUILD_BIN
-                        Path to 'bowtie-build' program
+  --bowtie-dir=BOWTIE_DIR
+                        Path to 'bowtie-build' program (by default, expects
+                        the 'bowtie-build' binary to be in current PATH)
 
 > python <INSTALL_DIR>/bin/chimerascan_index.py hg19.fa genes.txt myindexdir
 }}}
