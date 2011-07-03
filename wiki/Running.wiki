@@ -129,74 +129,68 @@ The output file, *myfile.html* will be written.  You can open it in your favorit
 Many of chimerascan's options are directly passed to `Bowtie`.  Therefore, users should refer to Bowtie's manual pages for a full explanation of these parameters.
 
 {{{
-[myself@mylocation] $ <INSTALL_DIR>/bin/chimerascan_run.py -h
-Usage: chimerascan_run.py [options] [--config <config_file>  | <mate1.fq> <mate2.fq> <output_dir>]
+$ <INSTALL_DIR>/bin/chimerascan_run.py --help
+Usage: chimerascan_run.py [options] [--config <config_file>  | <index> <mate1.fq> <mate2.fq> <output_dir>]
 
 Options:
   --version             show program's version number and exit
   -h, --help            show this help message and exit
-  --index=INDEX_DIR     Path to chimerascan index directory
   --config=CONFIG_FILE  Path to configuration XML file
   -v, --verbose         enable verbose logging output [default=False]
   -p NUM_PROCESSORS, --processors=NUM_PROCESSORS
                         Number of processor cores to allocate to chimerascan
                         [default=2]
   --keep-tmp            Do not delete intermediate files from run
+  --quals=FMT           FASTQ quality score format [default=sanger]
 
   Bowtie options:
     Adjust these options to change bowtie alignment settings
 
-    --bowtie-build-bin=BOWTIE_BUILD_BIN
-                        Path to 'bowtie-build' program
-    --bowtie-bin=BOWTIE_BIN
-                        Path to 'bowtie' program
-    --bowtie-mode-v     Run bowtie with -v to ignore quality scores
-    --multihits=MMAX    Ignore reads that map to more than MMAX locations
+    --bowtie-path=BOWTIE_PATH
+                        Path to directory containing 'bowtie' [default:
+                        assumes bowtie is in the current PATH]
+    --multihits=N       Ignore reads that map to more than N locations
                         [default=100]
     --mismatches=N      Aligned reads must have <= N mismatches [default=2]
-    --segment-length=SEGMENT_LENGTH
-                        Size of read segments during discordant alignment
+    --segment-length=N  Size of read segments during discordant alignment
                         phase [default=25]
+    --bowtie-args=BOWTIE_ARGS
+                        Additional arguments to pass to bowtie aligner (see
+                        Bowtie manual for options) [default='--best --strata']
     --trim5=N           Trim N bases from 5' end of read
     --trim3=N           Trim N bases from 3' end of read
-    --quals=FMT         Choose from solexa,sanger,illumina [default=sanger]
     --min-fragment-length=MIN_FRAGMENT_LENGTH
                         Smallest expected fragment length [default=0]
     --max-fragment-length=MAX_FRAGMENT_LENGTH
                         Largest expected fragment length (reads less than this
-                        fragment length are assumed to be  unspliced and
+                        fragment length are assumed to be unspliced and
                         contiguous) [default=1000]
-    --library=LIBRARY_TYPE
-                        Library type ('fr', 'rf') [default=fr]
+    --library-type=LIBRARY_TYPE
+                        Library type [default=fr-unstranded]
 
   Filtering options:
     Adjust these options to change filtering behavior
 
-    --max-indel-size=N  Tolerate indels less than N bp [default=100]
-    --anchor-min=ANCHOR_MIN
-                        Minimum junction overlap required to call spanning
-                        reads [default=0]
-    --anchor-max=ANCHOR_MAX
-                        Junction overlap below which to enforce mismatch
-                        checks [default=5]
-    --anchor-mismatches=ANCHOR_MISMATCHES
+    --homology-mismatches=N
+                        Number of mismatches to tolerate at breakpoints when
+                        computing homology [default=2]
+    --anchor-min=N      Minimum breakpoint overlap (bp) required to call
+                        spanning reads [default=4]
+    --anchor-length=N   Size (bp) of anchor region where mismatch checks are
+                        enforced [default=8]
+    --anchor-mismatches=N
                         Number of mismatches allowed within anchor region
-                        [default=5]
-    --filter-multimaps=FILTER_MAX_MULTIMAPS
-                        Filter chimeras that lack a read  with <= HITS
-                        alternative hits in both  pairs [default=2]
-    --filter-multimap-ratio=RATIO
-                        Filter chimeras with a weighted coverage versus total
-                        reads ratio <= RATIO [default=0.1]
-    --filter-isize-stdevs=N
-                        Filter chimeras where putative insert size is >N
-                        standard deviations from the mean [default=3]
-    --filter-strand-pvalue=p
-                        p-value to reject chimera based on  binomial test that
-                        balance of +/- strand  encompassing reads should be
-                        50/50 [default=0.01]
-    --empirical-prob=p  empirical probability threshold for outputting
-                        chimeras [default=1.0]
+                        [default=0]
+    --filter-cov-wo-spanning=N
+                        Filter chimeras lacking weighted coverage >= N when
+                        spanning reads are NOT present [default=3]
+    --filter-cov-w-spanning=N
+                        Filter chimeras lacking weighted coverage >= N when
+                        spanning reads ARE present [default=2]
+    --filter-isize-percentile=N
+                        Filter chimeras when putative insert size is larger
+                        than the Nth percentile of the distribution
+                        [default=99.9]
 }}}
 
 == `Chimerascan` configuration file support ==
