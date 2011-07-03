@@ -173,7 +173,7 @@ Below is an example working configuration file that may be used as a template:
     <file mate="0">/home/john/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq</file>
     <file mate="1">/home/john/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq</file>
   </fastq_files>
-  <index>/home/mkiyer/projects/bubba/myindex</index>
+  <index>/home/john/chimerascan_indexes/myindex</index>
   <num_processors>2</num_processors>
   <quals>solexa</quals>
   <keep_tmp>False</keep_tmp>
