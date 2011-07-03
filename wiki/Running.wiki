@@ -18,85 +18,47 @@ We have tested `chimerascan` using the UCSC genome version hg19 and the correspo
 To test chimerascan on the TMPRSS2-ERG discordant reads with the default parameters, run the following command:
 
 {{{
-$ <INSTALL_DIR>/bin/chimerascan_run.py --quals solexa <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq <OUTPUT_DIR>
+python <INSTALL_DIR>/bin/chimerascan_run.py -v --quals solexa <INDEX_DIR> <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq <DOWNLOAD_DIR>/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_output_dir
 }}}
 
-For example, if I downloaded chimerascan to `/home/john/downloads/chimerascan`, and installed chimerascan to `/home/john/chimerascan` and built and index at '/home/john/chimerascan_hg19_ucsc', I could run chimerascan as follows:
+For example, if I downloaded chimerascan to `/home/john/downloads/chimerascan`, and installed chimerascan to `/home/john/chimerascan` and built and index at '/home/john/chimerascan_hg19_ucsc_index', I could run chimerascan as follows:
 
 {{{
-$ /home/john/chimerascan/bin/chimerascan_run.py /home/john/chimerascan_hg19_ucsc /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_test
+$ /home/john/chimerascan/bin/chimerascan_run.py /home/john/chimerascan_hg19_ucsc_index /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq /home/john/downloads/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq t2erg_output_dir
 }}}
 
 == Logging messages ==
 
 Chimerascan produces periodic logging messages during runtime.  Adding the `--verbose` option on the command line will show additional debugging messages. If all goes well, you will see the following message upon completion:
 
-`2011-02-09 22:04:09,907 - root - INFO - Finished run. Chimeras written to file t2erg/chimeras.ranked.bedpe`
+`2011-02-09 22:04:09,907 - root - INFO - Finished run.`
 
-A successful chimerascan run will produce several output files.  Currently, the key output file is a tabular text file named *`chimeras.ranked.bedpe`*.
+A successful chimerascan run will produce several output files.  Currently, the key output file is a tabular text file named *`chimeras.txt`*.
 
-You can now proceed to look at the output.  There are many columns in the output file, and most users will not be concerned with most of them.  To view an abbreviated results list with key information, run the following command:
+You can now proceed to look at the output.
 
-{{{
-$ cut -f7-8,11-13,30-32,34 ./t2erg/chimeras.ranked.bedpe
-uc002yzj.2      uc002yxb.2      TMPRSS2|ERG     180.0   Intrachromosomal        -2802774        180     70      68      182     0.75
-}}}
+== Output ==
 
-This abbreviated output shows:
-  * 5' transcript name
-  * 3' transcript name
-  * chimera gene symbols separated by '|'
-  * weighted coverage of encompassing reads
-  * chimera type
-  * distance from 5' to 3' partner
-  * number of encompassing reads
-  * number of spanning reads
-  * number of spanning reads that were also detected as encompassing
-  * union of encompassing and spanning read IDs (total number of unique reads)
-  * score (0.0 - 1.0) based on empirical distribution of coverage and spanning reads
-
-
-== Full Output ==
-
-The `chimeras.ranked.bedpe` file follows the BEDPE format described by BEDTools, with many extra attributes following the required fields.  The full column description is provided below:
+The `chimeras.txt` file contains information about the chromosomal regions, transcript ids, genes, and statistics for each nominating chimera.  A full description of the output format is provided below:
 
 || *Column#* || *Name* || *Example* || *Description* ||
-|| 1 || 5' reference ||  uc002yzj.2 || Gene/chromosome reference 5' partner ||
-|| 2 || 5' start || 0 || Start position on 5' reference ||
-|| 3 || 5' end || 78 || End position on 5' reference ||
-|| 4 || 3' reference || uc002yzb.2 || Gene/chromosome reference for 3' partner ||
-|| 5 || 3' start || 311 || Start position on 3' reference ||
-|| 6 || 3' end || 5034 || End position on 3' reference ||
-|| 7 || Chimera name || TMPRSS2|ERG || 5' and 3' gene/chromosome names separated by a pipe '|' character ||
-|| 8 || Weighted coverage || 180.0 || Reads encompassing (not spanning) the fusion junction, where each read is weighted by the number of alternate alignments it had ||
-|| 9 || 5' strand || - || strand of 5' partner ||
-|| 10 || 3' strand || - || strand of 3' partner ||
+|| 1 || 5' chromosome || chr21 || Chromosome of 5' partner ||
+|| 2 || 5' breakpoint position || 42880007 || Genomic position of breakpoint in 5' partner ||
+|| 3 || 5' strand || - || Genomic strand of 5' partner ||
+|| 4 || 3' chromosome || chr21 || Chromosome of 3' partner ||
+|| 5 || 3' breakpoint position || 39817543 || Genomic position of breakpoint in 3' partner ||
+|| 6 || 3' strand || - || Genomic strand of 3' partner ||
+|| 7 || 5' transcript ids || uc002yzj.2 || Comma-delimited list of 5' transcript ids ||
+|| 8 || 3' transcript ids || uc010gnw.2,uc010gnx.2,uc002yxb.2,uc002yxa.2,uc011ael.1,uc011aem.1,uc002yxc.3 || Comma-delimited list of 3' transcript ids ||
+|| 9 || 5' genes || TMPRSS2 || Comma-delimited list of 5' genes ||
+|| 10 || 3' genes || ERG || Comma-delimited list of 3' genes ||
 || 11 || chimera type || Intrachromosomal || describes chimera as one of several types, including "Read_Through", "Intrachromosomal", "Interchromosomal", and others ||
 || 12 || distance to 3' partner || -2802774 || distance from 5' to 3' chimera, or 'None' for interchromosomal chimeras ||
-|| 13 || encompassing reads || 180 || Unweighted encompassing read count ||
-|| 14 || read1 sense/read2 antisense || 91 || Count of instances where read1 in the pair is on the sense strand ||
-|| 14 || read2 sense/read1 antisense || 89 || Count of instances where read2 in the pair is on the sense strand ||
-|| 15 || multimapping histogram || 180,0,0,0,0,0,0,0 || Histogram of read multimapping counts, with bin sizes increasing by powers of two.  The first value are the number of unique reads.  The second is the number of reads with exactly 2 hits.  The 3rd column is the number of reads with 3-4 hits.  The 4th column is the number of reads with 5-8 hits.  5th: 9-16, 6th: 17-32, 7th: 33-64, 8th: 65-128+ ||
-|| 16 || 5' 95% insert size || 67 || 5-95% percentile of insert size range for the 5' partner ||
-|| 17 || 3' 95% insert size || 116 || 5-95% percentile of insert size range for the 3' partner ||
-|| 18 || 5' exons || 0-0 || Start and end exons (numbered from 5'-> 3') with encompassing reads ||
-|| 19 || 3' exons || 3-3 || Start and end exons (numbered from 5'-> 3') with encompassing reads ||
-|| 20 || 5' junction permiscuity || 1.0 || fraction of chimeric reads using the 5' junction that are accountable to this 3' partner ||
-|| 21 || 3' junction permiscuity || 1.0 || fraction of chimeric reads using the 3' junction that are accountable to this 5' partner ||
-|| 22 || Read IDs || <not shown> || semicolon-delimited list of read IDs from the original FASTQ file ||
-|| 23 || Read1 Sequences || <not shown> || semicolon-delimited list of encompassing reads from read1 in the pair ||
-|| 24 || Read2 Sequences || <not shown> || semicolon-delimited list of encompassing reads from read2 in the pair ||
-|| 25 || Read2 Sequences || <not shown> || semicolon-delimited list of encompassing reads from read2 in the pair ||
-|| 26 || Junction ID || JUNC000001 || unique ID for this chimeric junction ||
-|| 27 || Junction Pos || 52 || location of breakpoint within junction sequence ||
-|| 28 || 5' homology || 2 || number of bases of homology between 5' and 3' partners ||
-|| 29 || 3' homology || 2 || number of bases of homology between 3' and 5' partners ||
-|| 30 || Spanning reads || 70 || number of reads spanning the breakpoint ||
-|| 31 || Intersection of encompassing and spanning reads || 68 || Number of spanning reads that were aligned as encompassing reads during segmented alignment ||
-|| 32 || Union of encompassing and spanning reads || 182 || Total number of reads supporting the breakpoint ||
-|| 33 || Spanning read descriptors || <not shown> || semicolon-delimited strings with "READ-ID|READ`[0,1]`|SEQUENCE|START|END|MULTIMAPPINGS|STRAND" for each spanning read ||
-|| 34 || Breakpoint histogram || 1,2,0,0,0,5,4,3,2,8 || histogram of number reads spanning the breakpoint each anchor length ||
-|| 35 || Score || 0.75 || interpolated empirical score used for ranking chimeras ||
+|| 13 || multimapping weighted fragments || 183.0 || a weighted count of fragments supporting chimera, where multimapping fragments are assigned fractional weights ||
+|| 14 || total fragments || 183 || total number of fragments supporting chimera ||
+|| 15 || spanning fragments || 68 || number of fragments spanning breakpoint junction ||
+|| 16 || unique alignment positions || 132 || number unique read alignment positions ||
+|| 17 || unique spanning alignment positions || 16 || number of unique breakpoint spanning alignment positions ||
 
 == Creating an HTML page for easy viewing of the top candidates in a run ==
 
