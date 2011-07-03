@@ -33,19 +33,19 @@ Download `chimerascan` from the Downloads page of this site.
 
 Unpack the `.tar.gz` file as follows:
 {{{
->tar -zxvf chimerascan-<version>.tar.gz
+$ tar -zxvf chimerascan-<version>.tar.gz
 }}}
 
 Next, change to the `chimerascan-<version>` directory that was just created.  Run the following python command to build the tool.  This will compile any C extension modules.
 
 {{{
-> python setup.py build
+$ python setup.py build
 }}}
 
 Then run the install command as follows:
 
 {{{
-> python setup.py install [--prefix <INSTALL_DIR]
+$ python setup.py install [--prefix <INSTALL_DIR]
 }}}
 
 If you specified `--prefix`, `chimerascan` will be installed to a custom directory. The scripts reside in `INSTALL_DIR/bin` and the library modules reside in `INSTALL_DIR/lib/<python-version>/site-packages/chimerascan`.
@@ -53,14 +53,14 @@ If you specified `--prefix`, `chimerascan` will be installed to a custom directo
 If you installed `chimerascan` to a custom location, you will need to set your PYTHONPATH variable to point to the installation directory. In the `bash` shell, this can be done as follows:
 
 {{{
-> export PYTHONPATH=<INSTALL_DIR>/lib/<python-version>/site-packages:$PYTHONPATH
+$ export PYTHONPATH=<INSTALL_DIR>/lib/<python-version>/site-packages:$PYTHONPATH
 }}}
 
 You can add this to one of your login scripts (e.g. `.bashrc`) to automatically add chimerascan libraries to your `PYTHONPATH` every time you open a new terminal.
 
 To test that the chimerascan libraries are in your `PYTHONPATH` execute the following from a terminal prompt:
 {{{
-> python
+$ python
 Python 2.6.X 
 Type "help", "copyright", "credits" or "license" for more information.
 
@@ -82,7 +82,7 @@ To build an index for chimerascan, you will need *both* a *genome* and a *transc
 
 You can easily download a genome reference from UCSC using either the `rsync` or `wget` commands.  For example, to download the latest version of the human genome (hg19), use the following command:
 {{{
-rsync -avzP rsync://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz .
+$ rsync -avzP rsync://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz .
 }}}
 
 Visit the UCSC download site at [ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips] for more instructions (see the README.txt) file.
@@ -93,13 +93,13 @@ You must uncompress and concatenate the individual chromosome FASTA files into a
 
 To uncompress, type:
 {{{
-> tar -zxvf chromFa.tar.gz
+$ tar -zxvf chromFa.tar.gz
 }}}
 
 We usually want to use the canonical chromosome references and ignore the haplotypes and unassembled FASTA files.  For the human genome (hg19), the following command can be used:
 
 {{{
-> cat chr?.fa chr??.fa > hg19.fa
+$ cat chr?.fa chr??.fa > hg19.fa
 }}}
 
 This will concatenate all chromosomes with one or two characters following the 'chr' file prefix.
@@ -128,7 +128,7 @@ In the lower table (mine reads "hg19.kgXref fields") select "geneSymbol" and no 
 If you downloaded a compressed (gzipped) transcriptome annotation file, uncompress it as follows:
 
 {{{
-> gunzip <myfile.gz>
+$ gunzip <myfile.gz>
 }}}
 
 === Building a custom transcriptome reference ===
@@ -145,7 +145,7 @@ The file should be in tabular text format with fields separated by the tab chara
 Now that you have downloaded and prepared the genome and transcriptome references you can now run the chimerascan indexer.  The indexer requires that you specify the paths to the genome FASTA file, the gene annotation file, and an output directory.  The indexer uses the `bowtie-build` indexing scheme from bowtie to build the index, so you must specify the path to this program as well.
 
 {{{
-> python <INSTALL_DIR>/bin/chimerascan_index.py -h
+$ python <INSTALL_DIR>/bin/chimerascan_index.py -h
 Usage: chimerascan_index.py [options] <reference_genome.fa> <gene_models.txt> <index_output_dir>
 
 Options:
@@ -154,7 +154,7 @@ Options:
                         Path to 'bowtie-build' program (by default, expects
                         the 'bowtie-build' binary to be in current PATH)
 
-> python <INSTALL_DIR>/bin/chimerascan_index.py hg19.fa genes.txt myindexdir
+$ python <INSTALL_DIR>/bin/chimerascan_index.py hg19.fa genes.txt myindexdir
 }}}
 
 This command will take several hours for large genomes.  Once the index is built, you will not need to rebuild it.
