@@ -106,9 +106,10 @@ Options:
   --quals=FMT           FASTQ quality score format [default=sanger]
   --isize-mean=N        Mean insert size to sample from when insert size
                         distribution cannot be determined empirically
+                        [default=200]
   --isize-stdev=N       Insert size standard deviation to sample from when
                         insert size distribution cannot be determined
-                        empirically
+                        empirically [default=40]
 
   Bowtie options:
     Adjust these options to change bowtie alignment settings
