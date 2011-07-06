@@ -46,10 +46,14 @@ The `chimeras.txt` file contains information about the chromosomal regions, tran
 
 || *Column#* || *Name* || *Example* || *Description* ||
 || 1 || 5' chromosome || chr21 || Chromosome of 5' partner ||
-|| 2 || 5' breakpoint position || 42880007 || Genomic position of breakpoint in 5' partner ||
-|| 3 || 5' strand || - || Genomic strand of 5' partner ||
-|| 4 || 3' chromosome || chr21 || Chromosome of 3' partner ||
-|| 5 || 3' breakpoint position || 39817543 || Genomic position of breakpoint in 3' partner ||
+|| 2 || 5' start || 42870000 || Genomic start of 5' partner ||
+|| 3 || 5' end || 42880007 || Genomic end of 5' partner ||
+|| 4 || 5' strand || - || Genomic strand of 5' partner ||
+|| 5 || 3' chromosome || chr21 || Chromosome of 3' partner ||
+|| 6 || 3' start || 39810000 || Genomic start of 3' partner ||
+|| 7 || 3' end || 39817543 || Genomic end of 3' partner ||
+
+
 || 6 || 3' strand || - || Genomic strand of 3' partner ||
 || 7 || 5' transcript ids || uc002yzj.2 || Comma-delimited list of 5' transcript ids ||
 || 8 || 3' transcript ids || uc010gnw.2,uc010gnx.2,uc002yxb.2,uc002yxa.2,uc011ael.1,uc011aem.1,uc002yxc.3 || Comma-delimited list of 3' transcript ids ||
