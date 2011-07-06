@@ -52,20 +52,18 @@ The `chimeras.txt` file contains information about the chromosomal regions, tran
 || 5 || 3' chromosome || chr21 || Chromosome of 3' partner ||
 || 6 || 3' start || 39810000 || Genomic start of 3' partner ||
 || 7 || 3' end || 39817543 || Genomic end of 3' partner ||
-
-
-|| 6 || 3' strand || - || Genomic strand of 3' partner ||
-|| 7 || 5' transcript ids || uc002yzj.2 || Comma-delimited list of 5' transcript ids ||
-|| 8 || 3' transcript ids || uc010gnw.2,uc010gnx.2,uc002yxb.2,uc002yxa.2,uc011ael.1,uc011aem.1,uc002yxc.3 || Comma-delimited list of 3' transcript ids ||
-|| 9 || 5' genes || TMPRSS2 || Comma-delimited list of 5' genes ||
-|| 10 || 3' genes || ERG || Comma-delimited list of 3' genes ||
-|| 11 || chimera type || Intrachromosomal || describes chimera as one of several types, including "Read_Through", "Intrachromosomal", "Interchromosomal", and others ||
-|| 12 || distance to 3' partner || -2802774 || distance from 5' to 3' chimera, or 'None' for interchromosomal chimeras ||
-|| 13 || multimapping weighted fragments || 183.0 || a weighted count of fragments supporting chimera, where multimapping fragments are assigned fractional weights ||
-|| 14 || total fragments || 183 || total number of fragments supporting chimera ||
-|| 15 || spanning fragments || 68 || number of fragments spanning breakpoint junction ||
-|| 16 || unique alignment positions || 132 || number unique read alignment positions ||
-|| 17 || unique spanning alignment positions || 16 || number of unique breakpoint spanning alignment positions ||
+|| 8 || 3' strand || - || Genomic strand of 3' partner ||
+|| 9 || 5' transcript ids || uc002yzj.2:0-78 || Comma-delimited list of 5' transcript ids with coordinates in chimera ||
+|| 11 || 3' transcript ids || uc010gnw.2:200-3000,uc010gnx.2:210-2250,uc002yxb.2:210-2250,uc002yxa.2:210-2250,uc011ael.1:210-2250,uc011aem.1:210-2250,uc002yxc.3:420-1540 || Comma-delimited list of 3' transcript ids with coordinates of chimera ||
+|| 12 || 5' genes || TMPRSS2 || Comma-delimited list of 5' genes ||
+|| 13 || 3' genes || ERG || Comma-delimited list of 3' genes ||
+|| 14 || chimera type || Intrachromosomal || describes chimera as one of several types, including "Read_Through", "Intrachromosomal", "Interchromosomal", and others ||
+|| 15 || distance to 3' partner || -2802774 || distance from 5' to 3' chimera, or 'None' for interchromosomal chimeras ||
+|| 16 || multimapping weighted fragments || 183.0 || a weighted count of fragments supporting chimera, where multimapping fragments are assigned fractional weights ||
+|| 17 || total fragments || 183 || total number of fragments supporting chimera ||
+|| 18 || spanning fragments || 68 || number of fragments spanning breakpoint junction ||
+|| 19 || unique alignment positions || 132 || number unique read alignment positions ||
+|| 20 || unique spanning alignment positions || 16 || number of unique breakpoint spanning alignment positions ||
 
 == Creating an HTML page for convenient output visualization ==
 
