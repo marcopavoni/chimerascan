@@ -20,10 +20,15 @@ This initial alignment is performed in paired-end mode; both reads in a pair mus
 
 Theoretically, this initial read alignment step could be performed with any alignment tool, but the current version of `chimerascan` supports only `Bowtie` for alignment.
 
-
 == Step 3: Sorting reads in SAM file ==
 
 A sorted, indexed BAM file is created to enable fast lookup of read alignments by genomic coordinates. This enables downstream analyses of genes and quantitation of transcript abundance. This process can take a considerable amount of time.
+
+== Step 4: Determining empirical distribution of fragment sizes ==
+
+`chimerascan` parses the aligned reads and computes the empirical distribution of fragment sizes.  Only uniquely mapping reads are used to sample the fragment size distribution. The fragment size distribution is used in future steps to help localize fusion breakpoints.
+
+== Step 5: Reads alignment step ==
 
 
 
