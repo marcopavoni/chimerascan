@@ -1,0 +1,32 @@
+#summary A technical description of the ChimeraScan algorithm
+
+= How ChimeraScan works =
+
+
+The following is a technical description of the ChimeraScan algorithm.  Though the software will be updated and improved, we do not anticipate that the steps in the algorithm will change drastically.
+
+== Step 0: Build an index for alignment ==
+
+The chimerascan_index.py script (see [Getting started]) 
+
+Step 1: Preparing reads for mapping
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+
+
+
+
+
+# the pipeline
+    # 2) ensure the "/1" and "/2" suffixes exist to denote reads in a pair
+    # 3) convert quality scores to sanger format
+    # 4) #TODO# trim poor quality reads 
+    # (requires support for variable length reads)
+    #
