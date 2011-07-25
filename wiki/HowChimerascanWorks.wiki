@@ -86,7 +86,7 @@ The chimeras are passed through a number of filters in order to remove erroneous
 
 Finally, a tab-delimited text file (currently named `chimeras.txt`) is produced in the output directory.  The fields in this file are described in the Running wiki page on this site.
 
-== [optional] Step 14: Produce an HTML web site ==
+== (optional) Step 14: Produce an HTML web site ==
 
 Users may run the companion script `chimerascan_html_table.py` to generate an HTML output of the chimera results for further investigation.
 
