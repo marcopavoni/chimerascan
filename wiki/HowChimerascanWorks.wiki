@@ -2,7 +2,7 @@
 
 = How `chimeracan` works =
 
-The following is a technical description of the algorithm.  Though the software will be updated and improved, we do not anticipate that the steps in the algorithm will change drastically.
+The following is a step-by-step description of the chimerascan workflow.
 
 == Step 0: Create alignment index ==
 
