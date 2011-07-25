@@ -1,4 +1,4 @@
-#summary A technical description of the ChimeraScan algorithm
+#summary A technical description of the chimerascan algorithm
 
 = How ChimeraScan works =
 
@@ -7,7 +7,7 @@ The following is a technical description of the ChimeraScan algorithm.  Though t
 
 == Step 0: Build an index for alignment ==
 
-The chimerascan_index.py script (see [Getting started]) 
+The chimerascan_index.py script (see Installation) 
 
 Step 1: Preparing reads for mapping
 
