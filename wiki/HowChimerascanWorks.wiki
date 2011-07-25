@@ -1,16 +1,57 @@
 #summary A technical description of the chimerascan algorithm
 
-= How ChimeraScan works =
+= How `chimeracan` works =
 
-
-The following is a technical description of the ChimeraScan algorithm.  Though the software will be updated and improved, we do not anticipate that the steps in the algorithm will change drastically.
+The following is a technical description of the algorithm.  Though the software will be updated and improved, we do not anticipate that the steps in the algorithm will change drastically.
 
 == Step 0: Build an index for alignment ==
 
-The chimerascan_index.py script (see Installation) 
+The `chimerascan_index.py` script included with `chimerascan` is used to prepare an index for alignment (see Installation).  Currently, the Bowtie aligner is used as the primary alignment tool.
 
-Step 1: Preparing reads for mapping
+== Step 1: Preparing reads for mapping ==
 
+`chimerascan` parses FASTQ files containing the original read sequences and performs the following: 1) converts all quality scores to Sanger format (Phred + 33) and 2) converts the `qname` for the reads from an arbitrarily long string to a number.  Thus, this process essentially creates an identical copy of the original reads and requires considerable disk storage space for large amounts of reads.
+
+== Step 2: Initial read alignment ==
+
+Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for "multimapping" to accommodate this redundancy.
+
+This initial alignment is performed in paired-end mode; both reads in a pair must align within `--min-fragment-length` and `--max-fragment-length` (specified by user). This *must* concur with the fragment size range chosen during size selection.
+
+Fragment sizes are typically 
+
+
+
+reads that do not align 
+
+
+== Step 3: 
+
+
+
+
+Therefore, we recommend setting the `--multimaps` option to >40.  We have not exhaustively tested upper bounds for the `--multimaps` flag
+
+Reads are aligned 
+
+
+in paired-end 
+
+    #
+    # Initial Bowtie alignment step
+    #
+    # align in paired-end mode, trying to resolve as many reads as possible
+    # this effectively rules out the vast majority of reads as candidate
+    # fusions
+    #
+
+
+and writes them in a 
+
+
+
+
+Reads are simultaneously aligned to both the genome and transcript references.  Therefore, many reads will map to both a t
 
 = Details =
 
