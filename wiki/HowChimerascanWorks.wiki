@@ -12,13 +12,12 @@ The `chimerascan_index.py` script included with `chimerascan` is used to prepare
 
 `chimerascan` parses FASTQ files containing the original read sequences and performs the following: 1) converts all quality scores to Sanger format (Phred + 33) and 2) converts the `qname` for the reads from an arbitrarily long string to a number.  Thus, this process essentially creates an identical copy of the original reads and requires considerable disk storage space for large amounts of reads.
 
-== Step 2: Initial read alignment ==
+== Step 2: Paired-end read alignment ==
 
 Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for "multimapping" to accommodate this redundancy.
 
 This initial alignment is performed in paired-end mode; both reads in a pair must align within `--min-fragment-length` and `--max-fragment-length` (specified by user). This *must* be substantially larger with the fragment size range chosen during size selection. By default we assume use a fragment length range 0-1000bp and this has worked in our test data sets.
-
-Theoretically, this initial read alignment step could be performed with any alignment tool, but the current version of `chimerascan` supports only `Bowtie` for alignment.
+In principle this initial read alignment step could be performed with any alignment tool, but the current version of `chimerascan` only supports `Bowtie` for alignment.
 
 == Step 3: Sorting reads in SAM file ==
 
@@ -28,7 +27,17 @@ A sorted, indexed BAM file is created to enable fast lookup of read alignments b
 
 `chimerascan` parses the aligned reads and computes the empirical distribution of fragment sizes.  Only uniquely mapping reads are used to sample the fragment size distribution. The fragment size distribution is used in future steps to help localize fusion breakpoints.
 
-== Step 5: Reads alignment step ==
+== Step 5: Realignment of initially unmapped reads ==
+
+All read pairs that could not be mapped as a pair to either teheee
+
+
+    #
+    # Realignment step
+    #
+    # trim and realign all the initially unaligned reads, in order to
+    # increase sensitivity to detect reads spanning fusion junctions
+    #
 
 
 
