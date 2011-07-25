@@ -36,15 +36,13 @@ In the second alignment step, all of the initially unmapped reads are treated as
 
 == Step 6: Discover discordant reads ==
 
-The realigned reads are search for evidence of discordant reads.  A discordant read is currently defined as follows:
+The realigned reads are searched for evidence of discordant reads.  A discordant read is currently defined as follows:
 
-1) The fragment does not align to the genome within user-specified fragment size range (default: 1000bp)
+# The fragment does not align to the genome within user-specified fragment size range (default: 1000bp)
+# The pair does not align to a single transcript
+# The pair does not align to different transcripts that share exonic sequences on the same strand.  In otherwords, reads that map to different isoforms of the same gene are excluded, as it is not the goal of chimerascan to discover unannotated splicing patterns within a single gene.
 
-2) The pair does not align to a single transcript
-
-3) The pair does not align to different transcripts that share exonic sequences on the same strand.  In otherwords, reads that map to different isoforms of the same gene are excluded, as it is not the goal of chimerascan to discover unannotated splicing patterns within a single gene.
-
-All reads that meet these criteria are considered discordant and candidate chimeras.
+Discordant reads are stored in an intermediate file format called BEDPE (developed by Aaron Quinlan, [http://code.google.com/p/bedtools]).  These reads are sorted by reference name and position.
 
 == Step 7: Nominate chimeras ==
 
