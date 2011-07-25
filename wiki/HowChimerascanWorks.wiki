@@ -20,7 +20,7 @@ This initial alignment is performed in paired-end mode; both reads in a pair mus
 
 == Step 3: Create a sorted/indexed BAM file ==
 
-A sorted, indexed BAM file is created to enable fast lookup of the original read alignments by genomic coordinates. This enables downstream analyses of genes and quantification of transcript abundance. This process can take a considerable amount of time.
+A sorted, indexed BAM file is created to enable fast lookup of the original read alignments by genomic coordinates. This enables fast lookup of reads for downstream analyses such as gene expression. This process can take a considerable amount of time.
 
 == Step 4: Estimate fragment size distribution ==
 
