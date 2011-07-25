@@ -8,7 +8,7 @@ The following is a technical description of the algorithm.  Though the software 
 
 The `chimerascan_index.py` script included with `chimerascan` is used to prepare an index for alignment (see Installation).  Currently, the Bowtie aligner is used as the primary alignment tool.
 
-== Step 1: Preparing reads for mapping ==
+== Step 1: Prepare reads for mapping ==
 
 `chimerascan` parses FASTQ files containing the original read sequences and performs the following: 1) converts all quality scores to Sanger format (Phred + 33) and 2) converts the `qname` for the reads from an arbitrarily long string to a number.  Thus, this process essentially creates an identical copy of the original reads and requires considerable disk storage space for large amounts of reads.
 
@@ -16,16 +16,14 @@ The `chimerascan_index.py` script included with `chimerascan` is used to prepare
 
 Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for "multimapping" to accommodate this redundancy.
 
-This initial alignment is performed in paired-end mode; both reads in a pair must align within `--min-fragment-length` and `--max-fragment-length` (specified by user). This *must* concur with the fragment size range chosen during size selection.
+This initial alignment is performed in paired-end mode; both reads in a pair must align within `--min-fragment-length` and `--max-fragment-length` (specified by user). This *must* be substantially larger with the fragment size range chosen during size selection. By default we assume use a fragment length range 0-1000bp and this has worked in our test data sets.
 
-Fragment sizes are typically 
-
-
-
-reads that do not align 
+Theoretically, this initial read alignment step could be performed with any alignment tool, but the current version of `chimerascan` supports only `Bowtie` for alignment.
 
 
-== Step 3: 
+== Step 3: Sorting reads in SAM file ==
+
+A sorted, indexed BAM file is created to enable fast lookup of read alignments by genomic coordinates. This enables downstream analyses of genes and quantitation of transcript abundance. This process can take a considerable amount of time.
 
 
 
