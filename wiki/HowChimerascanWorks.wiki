@@ -14,7 +14,7 @@ The `chimerascan_index.py` script included with `chimerascan` is used to prepare
 
 == Step 2: Align paired-end reads ==
 
-Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for multiple mappings per read to accommodate this redundancy.
+Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for multiple mappings per read to accommodate this redundancy (`--multimaps`, default: 40).
 
 This initial alignment is performed in paired-end mode; both reads in a pair must align within a distance range specified by the user with the `--min-fragment-length` and `--max-fragment-length` flags. By default we assume use a fragment length range 0-1000bp and this has worked in our test data sets.
 
