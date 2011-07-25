@@ -46,7 +46,7 @@ Discordant reads are stored in an intermediate file format called BEDPE (develop
 
 == Step 7: Nominate chimeras ==
 
-The fragment size distribution is used to predict an optimal fusion breakpoint location for each discordant pair along the 5' and 3' transcripts.  All reads that share the same breakpoint are aggregated together to form putative chimeras.  By default, chimeras with only one supporting read are omitted.
+The fragment size distribution is used to predict an optimal fusion breakpoint location for each discordant pair along the 5' and 3' transcripts.  All reads that share the same breakpoint are aggregated together to form putative chimeras.
 
 == Step 8: Extract chimeric breakpoint sequences ==
 
