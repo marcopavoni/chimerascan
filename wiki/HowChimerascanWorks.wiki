@@ -10,11 +10,11 @@ The `chimerascan_index.py` script included with `chimerascan` is used to prepare
 
 == Step 1: Prepare reads for alignment ==
 
-`chimerascan` parses FASTQ files containing the original read sequences and performs the following: 1) converts all quality scores to Sanger format (Phred + 33) and 2) converts the `qname` for the reads from an arbitrarily string to a number.  This process essentially creates a temporary copy of the original reads.
+`chimerascan` parses FASTQ files containing the original read sequences and performs the following: 1) converts all quality scores to Sanger format (Phred + 33) and 2) converts the `qname` for the reads from an arbitrarily long string to a number.  Renaming the reads guarantees that the paired-end naming convention that uses "/1" and "/2" to denote read 1 and read 2 is followed, and also reduces the storage requirements of intermediate steps. This process essentially creates a temporary copy of the original reads.
 
 == Step 2: Align paired-end reads ==
 
-Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for multiple mappings per read to accommodate this redundancy (`--multimaps`, default: 40).
+Paired-end reads are aligned to a combined genome and transcriptome reference.  By design this creates many redundant alignments for each read because a single read could align to both the genome and to different transcript isoforms.  Therefore, the alignment process allows for multiple mappings per read to accommodate this redundancy (`--multimaps, default: 40`).
 
 This initial alignment is performed in paired-end mode; both reads in a pair must align within a distance range specified by the user with the `--min-fragment-length` and `--max-fragment-length` flags. By default we assume use a fragment length range 0-1000bp and this has worked in our test data sets.
 
