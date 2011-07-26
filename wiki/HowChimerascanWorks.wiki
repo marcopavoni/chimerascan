@@ -86,4 +86,4 @@ Users may run the companion script `chimerascan_html_table.py` to generate an HT
 
 = Questions or concerns =
 
-We are continuing to develop and improve chimerascan and would welcome your feedback and suggestions. Please post your issues or concerns with chimerascan on the [Issues] section of this web site.  
+We are continuing to develop and improve chimerascan and would welcome your feedback and suggestions. Please post your issues or concerns with chimerascan on the *Issues* section of this web site.  
