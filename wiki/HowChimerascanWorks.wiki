@@ -38,9 +38,9 @@ In the second alignment step, all of the initially unmapped reads are treated as
 
 The realigned reads are searched for evidence of discordant reads.  A discordant read is currently defined as follows:
 
-# The fragment does not align to the genome within user-specified fragment size range (default: 1000bp)
-# The pair does not align to a single transcript
-# The pair does not align to different transcripts that share exonic sequences on the same strand.  In otherwords, reads that map to different isoforms of the same gene are excluded, as it is not the goal of chimerascan to discover unannotated splicing patterns within a single gene.
+  # The fragment does not align to the genome within user-specified fragment size range (default: 1000bp)
+  # The pair does not align to a single transcript
+  # The pair does not align to different transcripts that share exonic sequences on the same strand.  In otherwords, reads that map to different isoforms of the same gene are excluded, as it is not the goal of chimerascan to discover unannotated splicing patterns within a single gene.
 
 Discordant reads are stored in an intermediate file format called BEDPE (developed by Aaron Quinlan, [http://code.google.com/p/bedtools]).  These reads are sorted by reference name and position.
 
@@ -64,21 +64,21 @@ The `bowtie` aligner is used to align all candidate breakpoint spanning reads to
 
 Reads that aligned to the breakpoint sequence database are considered _spanning_ a breakpoint according to the following criteria:
 
-# The alignment overlaps the breakpoint by at least `--anchor-min` bases (default: 4) *plus* the number bases of homologous sequence between the chimeric transcript and the wild-type transcript.
+  # The alignment overlaps the breakpoint by at least `--anchor-min` bases (default: 4) *plus* the number bases of homologous sequence between the chimeric transcript and the wild-type transcript.
 
-# No more than `--anchor-mismatches` mismatches are found within the first `--anchor-length` bases of the alignment.
+  # No more than `--anchor-mismatches` mismatches are found within the first `--anchor-length` bases of the alignment.
 
 == Step 12: Filter chimeras == 
 
 The chimeras are passed through a number of filters in order to remove erroneous artifacts.  These include:
 
-# Chimeras with very low coverage (specified with `--filter-unique-frags`, default 2) may have arisen from ligation artifacts during library preparation
+  # Chimeras with very low coverage (specified with `--filter-unique-frags`, default 2) may have arisen from ligation artifacts during library preparation
 
-# Chimeric transcript expression may be much lower than the expression of one or both of the wild-type transcripts in the sample (specified with `--filter-isoform-fraction`, default 0.10).
+  # Chimeric transcript expression may be much lower than the expression of one or both of the wild-type transcripts in the sample (specified with `--filter-isoform-fraction`, default 0.10).
 
-# Reads that support chimeras may not agree with the fragment size distribution of the library (specified with `--filter-isize-percentile`, default 99%).
+  # Reads that support chimeras may not agree with the fragment size distribution of the library (specified with `--filter-isize-percentile`, default 99%).
 
-# Users may have a list of known false positives available (specified with --filter-false-pos as a path to a file containing false positives)
+  # Users may have a list of known false positives available (specified with --filter-false-pos as a path to a file containing false positives)
 
 == Step 13: Produce a text output file ==
 
