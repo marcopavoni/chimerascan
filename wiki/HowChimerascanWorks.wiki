@@ -18,7 +18,7 @@ Paired-end reads are aligned to a combined genome and transcriptome reference.  
 
 This initial alignment is performed in paired-end mode; both reads in a pair must align within a distance range specified by the user with the `--min-fragment-length` and `--max-fragment-length` flags. The default settings use a fragment length range `0-1000bp`.
 
-There are a number of other command-line options that used to control the behavior of Bowtie at this initial paired-end alignment stage.  These are:
+There are a number of other command-line options that are used to control the behavior of Bowtie at this initial paired-end alignment stage.  These are:
 
   # Read trimming (`--trim5` and `--trim3`) trims a specified number of bases from the 5' or 3' end of all reads.
   # Number of mismatches (`--mismatches`) tolerated in alignments
