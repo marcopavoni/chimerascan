@@ -43,6 +43,10 @@ Some of read pairs that could not be mapped to either the genome or transcriptom
 
 In the second alignment step, all of the initially unmapped reads are treated as single reads and realigned.  Additionally, the reads are trimmed such that only the sequences at the ends of the fragment are aligned.  The size of the trimmed segment can be specified by the user using the `--segment-length` option (default=25bp). Setting the `--segment-length` to a large number will increase the specificity of the mapping process (less multi-mapping reads) but will decrease sensitivity to detect chimeras, since a larger percentage of reads will contain fusion breakpoints and fail alignment. If you suspect that your library preparation produced short DNA fragments sequenced at long read lengths, then a considerable fraction of the read pairs could be overlapping.  In this case try to keep `--segment-length` small.
 
+A number of command-line options can be changed to control the behavior of Bowtie at the realignment stage:
+  # The number of mismatches tolerated (`--discord-mismatches`, default 3).  It is *recommended* to allow for 3 mismatches here (the maximum supported by Bowtie) as this will reduce the number of discordant reads arising from homologous genes.
+  # Additional Bowtie arguments (`--discord-bowtie-args`).  *NOTE* do not change this option unless you are sure about it.
+
 == Step 6: Discover discordant reads ==
 
 The realigned reads are searched for evidence of discordant reads.  A discordant read is currently defined as follows:
