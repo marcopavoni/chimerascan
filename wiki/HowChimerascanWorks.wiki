@@ -74,7 +74,7 @@ The chimeras are passed through a number of filters in order to remove erroneous
   # Chimeras with very low coverage (specified with `--filter-unique-frags`, default 2) may have arisen from ligation artifacts during library preparation
   # Chimeric transcript expression may be much lower than the expression of one or both of the wild-type transcripts in the sample (specified with `--filter-isoform-fraction`, default 0.10).
   # Reads that support chimeras may not agree with the fragment size distribution of the library (specified with `--filter-isize-percentile`, default 99%).
-  # Users may have a list of known false positives available (specified with --filter-false-pos as a path to a file containing false positives)
+  # Users may have a list of known false positives available (specified with `--filter-false-pos` as a path to a file containing false positives)
 
 == Step 13: Produce a text output file ==
 
