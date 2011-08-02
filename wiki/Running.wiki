@@ -104,8 +104,12 @@ Options:
   -p NUM_PROCESSORS, --processors=NUM_PROCESSORS
                         Number of processor cores to allocate to chimerascan
                         [default=2]
-  --keep-tmp            Do not delete intermediate files from run
+  --keep-tmp            DO NOT delete intermediate files after run
+                        [default=True]
+  --rm-tmp              Delete intermediate files after run [default=True]
   --quals=FMT           FASTQ quality score format [default=sanger]
+  --library-type=LIBRARY_TYPE
+                        Library type [default=fr-unstranded]
   --isize-mean=N        Mean insert size to sample from when insert size
                         distribution cannot be determined empirically
                         [default=200]
@@ -119,14 +123,6 @@ Options:
     --bowtie-path=BOWTIE_PATH
                         Path to directory containing 'bowtie' [default:
                         assumes bowtie is in the current PATH]
-    --multihits=N       Ignore reads that map to more than N locations
-                        [default=100]
-    --mismatches=N      Aligned reads must have <= N mismatches [default=2]
-    --segment-length=N  Size of read segments during discordant alignment
-                        phase [default=25]
-    --bowtie-args=BOWTIE_ARGS
-                        Additional arguments to pass to bowtie aligner (see
-                        Bowtie manual for options) [default='--best --strata']
     --trim5=N           Trim N bases from 5' end of read
     --trim3=N           Trim N bases from 3' end of read
     --min-fragment-length=MIN_FRAGMENT_LENGTH
@@ -135,8 +131,22 @@ Options:
                         Largest expected fragment length (reads less than this
                         fragment length are assumed to be unspliced and
                         contiguous) [default=1000]
-    --library-type=LIBRARY_TYPE
-                        Library type [default=fr-unstranded]
+    --multihits=N       Ignore reads that map to more than N locations
+                        [default=100]
+    --initial-mismatches=N
+                        Aligned reads must have <= N mismatches [default=2]
+    --initial-bowtie-args=BOWTIE_ARGS
+                        Additional arguments to pass to bowtie aligner (see
+                        Bowtie manual for options) [default='--best --strata']
+    --discord-bowtie-args=DISCORD_BOWTIE_ARGS
+                        Additional arguments to pass to bowtie aligner for
+                        discordant alignment phase (see Bowtie manual for
+                        options) [default='--best']
+    --discord-mismatches=N
+                        Discordant aligned reads must have <= N mismatches
+                        [default=3]
+    --segment-length=N  Size of read segments during discordant alignment
+                        phase [default=25]
 
   Filtering options:
     Adjust these options to change filtering behavior
@@ -151,16 +161,21 @@ Options:
     --anchor-mismatches=N
                         Number of mismatches allowed within anchor region
                         [default=0]
-    --filter-cov-wo-spanning=N
-                        Filter chimeras lacking weighted coverage >= N when
-                        spanning reads are NOT present [default=3]
-    --filter-cov-w-spanning=N
-                        Filter chimeras lacking weighted coverage >= N when
-                        spanning reads ARE present [default=2]
-    --filter-isize-percentile=N
-                        Filter chimeras when putative insert size is larger
-                        than the Nth percentile of the distribution
-                        [default=99.9]
+    --filter-unique-frags=N
+                        Filter chimeras with less than N unique aligned
+                        fragments (multimapping fragments are assigned
+                        fractional weights) [default=2.0]
+    --filter-isize-prob=X
+                        Filter chimeras when probability of observing the
+                        putative insert size is less than X (0.0-1.0)
+                        [default=0.01]
+    --filter-isoform-fraction=X
+                        Filter chimeras with expression ratio less than X
+                        (0.0-1.0) relative to the wild-type transcript levels
+                        [default=0.01]
+    --filter-false-pos=FILTER_FALSE_POS_FILE
+                        File containing known false positive chimeric
+                        transcript pairs to filter out
 }}}
 
 == `Chimerascan` configuration file support ==
