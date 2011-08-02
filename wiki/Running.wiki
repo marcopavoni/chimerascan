@@ -42,28 +42,32 @@ You can now proceed to look at the output.
 
 == Output ==
 
-The `chimeras.txt` file contains information about the chromosomal regions, transcript ids, genes, and statistics for each chimera.  A full description of the output format is provided below:
+The `chimeras.bedpe` file contains information about the chromosomal regions, transcript ids, genes, and statistics for each chimera.  The file adapts to the BEDPE format for representing paired-intervals (courtesy Aaron Quinlan and the BEDTools project). A full description of the output format is provided below:
 
 || *Column#* || *Name* || *Example* || *Description* ||
 || 1 || 5' chromosome || chr21 || Chromosome of 5' partner ||
 || 2 || 5' start || 42870000 || Genomic start of 5' partner ||
 || 3 || 5' end || 42880007 || Genomic end of 5' partner ||
-|| 4 || 5' strand || - || Genomic strand of 5' partner ||
-|| 5 || 3' chromosome || chr21 || Chromosome of 3' partner ||
-|| 6 || 3' start || 39810000 || Genomic start of 3' partner ||
-|| 7 || 3' end || 39817543 || Genomic end of 3' partner ||
-|| 8 || 3' strand || - || Genomic strand of 3' partner ||
-|| 9 || 5' transcript ids || uc002yzj.2:0-78 || Comma-delimited list of 5' transcript ids with coordinates in chimera ||
-|| 11 || 3' transcript ids || uc010gnw.2:200-3000,uc010gnx.2:210-2250 || Comma-delimited list of 3' transcript ids with coordinates of chimera ||
-|| 12 || 5' genes || TMPRSS2 || Comma-delimited list of 5' genes ||
-|| 13 || 3' genes || ERG || Comma-delimited list of 3' genes ||
-|| 14 || chimera type || Intrachromosomal || describes chimera as one of several types, including "Read_Through", "Intrachromosomal", "Interchromosomal", and others ||
-|| 15 || distance to 3' partner || -2802774 || distance from 5' to 3' chimera, or 'None' for interchromosomal chimeras ||
-|| 16 || multimapping weighted fragments || 183.0 || a weighted count of fragments supporting chimera, where multimapping fragments are assigned fractional weights ||
-|| 17 || total fragments || 183 || total number of fragments supporting chimera ||
+|| 4 || 3' chromosome || chr21 || Chromosome of 3' partner ||
+|| 5 || 3' start || 39810000 || Genomic start of 3' partner ||
+|| 6 || 3' end || 39817543 || Genomic end of 3' partner ||
+|| 7 || chimera cluster id || CLUSTER001 || Identifies a group of overlapping chimeras ||
+|| 8 || score || 186 || Total fragments supporting chimera ||
+|| 9 || 5' strand || - || Genomic strand of 5' partner ||
+|| 10 || 3' strand || - || Genomic strand of 3' partner ||
+|| 11 || 5' transcript ids || uc002yzj.2:0-78 || Comma-delimited list of 5' transcript ids with coordinates in chimera ||
+|| 12 || 3' transcript ids || uc010gnw.2:200-3000,uc010gnx.2:210-2250 || Comma-delimited list of 3' transcript ids with coordinates of chimera ||
+|| 13 || 5' genes || TMPRSS2 || Comma-delimited list of 5' genes ||
+|| 14 || 3' genes || ERG || Comma-delimited list of 3' genes ||
+|| 15 || chimera type || Intrachromosomal || describes chimera as one of several types, including "Read_Through", "Intrachromosomal", "Interchromosomal", and others ||
+|| 16 || distance to 3' partner || -2802774 || distance from 5' to 3' chimera, or 'None' for interchromosomal chimeras ||
+|| 17 || total fragments || 186.0 || total fragments supporting chimera (same as column 8) ||
 || 18 || spanning fragments || 68 || number of fragments spanning breakpoint junction ||
 || 19 || unique alignment positions || 132 || number unique read alignment positions ||
-|| 20 || unique spanning alignment positions || 16 || number of unique breakpoint spanning alignment positions ||
+|| 20 || 5' isoform fraction || 0.97 || chimeric fraction of total 5' transcript reads that overlap the breakpoint ||
+|| 21 || 3' isoform fraction || 0.53 || chimeric fraction of total 3' transcript reads that overlap the breakpoint ||
+|| 22 || breakpoint spanning reads || >4668671/1;pos=29;strand=+,GGCGGAGGCGGAGGGCGAGGGGCGGGGAGCGCCGCCTGGAGCGCGGCAGGAAG,>1378815/1;pos=30;strand=+,GCGGAGGCGGAGGGCGAGGGGCGGGGAGCGCCGCCTGGAGCGCGGCAGGAAGC || pseudo-FASTA format containing reads that span the breakpoint for this chimera ||
+|| 23 || chimera IDs || C2846325,C2846326,C2846327 || (for debugging purposes) unique IDs of specific chimera isoforms contributing to this cluster ||
 
 == Creating an HTML page for convenient output visualization ==
 
@@ -81,7 +85,7 @@ Options:
 
 For example:
 {{{
-python /home/john/chimerascan/bin/chimerascan_html_table.py --read-throughs -o chimeras.html ./t2erg_output_dir/chimeras.txt
+python /home/john/chimerascan/bin/chimerascan_html_table.py --read-throughs -o chimeras.html ./t2erg_output_dir/chimeras.bedpe
 }}}
 
 The output file, *chimeras.html* will be written.  You can open it in your favorite web browser.  Javascript should be enabled to facilitate the sorting feature.
