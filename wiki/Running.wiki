@@ -36,7 +36,7 @@ Chimerascan produces periodic logging messages during runtime.  Adding the `--ve
 
 `2011-02-09 22:04:09,907 - root - INFO - Finished run.`
 
-A successful chimerascan run will produce several output files.  Currently, the key output file is a tabular text file named *`chimeras.txt`*.
+A successful chimerascan run will produce several output files.  Currently, the key output file is a tabular text file named *`chimeras.bedpe`*.
 
 You can now proceed to look at the output.
 
@@ -75,7 +75,7 @@ A script, "chimerascan_html_table.py", is provided in the installation and produ
 
 {{{
 $ python <INSTALL_DIR/bin/chimerascan_html_table.py -h
-Usage: chimerascan_html_table.py [options] <chimeras.txt>
+Usage: chimerascan_html_table.py [options] <chimeras.bedpe>
 
 Options:
   -h, --help       show this help message and exit
