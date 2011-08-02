@@ -189,19 +189,21 @@ Below is an example working configuration file that may be used as a template:
 
 {{{
 <chimerascan_config>
-  <output_dir>out</output_dir>
+  <output_dir>vcap042test</output_dir>
   <fastq_files>
     <file mate="0">/home/john/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_1.fq</file>
     <file mate="1">/home/john/chimerascan/tests/vcap_pe_53bp/TMPRSS2-ERG_2.fq</file>
   </fastq_files>
-  <index>/home/john/chimerascan_indexes/myindex</index>
-  <num_processors>2</num_processors>
+  <index>/exds/projects/chimerascan/hg19_ucsc_illumina</index>
+  <num_processors>4</num_processors>
   <quals>solexa</quals>
-  <keep_tmp>False</keep_tmp>
+  <keep_tmp>True</keep_tmp>
   <bowtie_path />
   <bowtie_args>--best --strata</bowtie_args>
+  <discord_bowtie_args>--best</discord_bowtie_args>
   <multihits>100</multihits>
   <mismatches>2</mismatches>
+  <discord_mismatches>3</discord_mismatches>
   <segment_length>25</segment_length>
   <trim5>0</trim5>
   <trim3>0</trim3>
@@ -214,8 +216,10 @@ Below is an example working configuration file that may be used as a template:
   <anchor_min>4</anchor_min>
   <anchor_length>8</anchor_length>
   <anchor_mismatches>0</anchor_mismatches>
-  <filter_cov_wo_spanning>3</filter_cov_wo_spanning>
-  <filter_cov_w_spanning>2</filter_cov_w_spanning>
-  <filter_isize_percentile>99.9</filter_isize_percentile>
+  <filter_unique_frags>2.0</filter_unique_frags>
+  <filter_isize_prob>0.01</filter_isize_prob>
+  <filter_isoform_fraction>0.01</filter_isoform_fraction>
+  <filter_false_pos_file>hg19_bodymap_false_positive_chimeras.txt</filter_false_pos_file>
 </chimerascan_config>
+
 }}}
