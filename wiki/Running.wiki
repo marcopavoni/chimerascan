@@ -163,8 +163,7 @@ Options:
                         [default=0]
     --filter-unique-frags=N
                         Filter chimeras with less than N unique aligned
-                        fragments (multimapping fragments are assigned
-                        fractional weights) [default=2.0]
+                        fragments [default=2]
     --filter-isize-prob=X
                         Filter chimeras when probability of observing the
                         putative insert size is less than X (0.0-1.0)
