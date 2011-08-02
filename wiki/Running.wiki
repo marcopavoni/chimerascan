@@ -67,11 +67,11 @@ The `chimeras.txt` file contains information about the chromosomal regions, tran
 
 == Creating an HTML page for convenient output visualization ==
 
-A script, "make_html_table.py", is provided in the installation and produces an HTML web page with a sortable table of the chimeras in the output. *NOTE: This script requires the Jinja2 python package to be installed, visit [http://jinja.pocoo.org/docs/intro/#installation] to install it*.  The script suppresses read-through chimeras by default, unless the `--read-throughs` option is supplied on the command line. The script is run as follows:
+A script, "chimerascan_html_table.py", is provided in the installation and produces an HTML web page with a sortable table of the chimeras in the output. *NOTE: This script requires the Jinja2 python package to be installed, visit [http://jinja.pocoo.org/docs/intro/#installation] to install it*.  The script suppresses read-through chimeras by default, unless the `--read-throughs` option is supplied on the command line. The script is run as follows:
 
 {{{
-$ python <INSTALL_DIR/bin/make_html_table.py -h
-Usage: make_html_table.py [options] <chimeras.txt>
+$ python <INSTALL_DIR/bin/chimerascan_html_table.py -h
+Usage: chimerascan_html_table.py [options] <chimeras.txt>
 
 Options:
   -h, --help       show this help message and exit
@@ -81,7 +81,7 @@ Options:
 
 For example:
 {{{
-python /home/john/chimerascan/bin/make_html_table.py --read-throughts -o chimeras.html ./t2erg_output_dir/chimeras.txt
+python /home/john/chimerascan/bin/chimerascan_html_table.py --read-throughs -o chimeras.html ./t2erg_output_dir/chimeras.txt
 }}}
 
 The output file, *chimeras.html* will be written.  You can open it in your favorite web browser.  Javascript should be enabled to facilitate the sorting feature.
