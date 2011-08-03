@@ -8,7 +8,7 @@
 
 = Know your data =
 
-  # *NEW* Your FASTQ files can be in plain text or compressed.  `chimerascan` interprets FASTQ files that end in ".gz" as `gzip` files, ".bz2" as `bzip2` files, and ".zip" as `zip` files.  Any other file extension will be treated as plain text.
+  # *NEW in version 0.4.3+* Your FASTQ files can be in plain text or compressed.  `chimerascan` interprets FASTQ files that end in ".gz" as `gzip` files, ".bz2" as `bzip2` files, and ".zip" as `zip` files.  Any other file extension will be treated as plain text.
   # The quality scores of illumina FASTQ files can vary.  Check your pipeline version to learn what quality score format your data has. Specify `sanger`, `solexa`, or `illumina` for the `--quals` parameter to choose the appropriate mode when running `chimerascan`.
 
 = Your first run =
